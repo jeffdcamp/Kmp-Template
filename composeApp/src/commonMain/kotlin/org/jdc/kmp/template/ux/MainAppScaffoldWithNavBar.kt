@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.outlined.Info
@@ -43,7 +43,7 @@ fun MainAppScaffoldWithNavBar(
     title: String,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
-    navigationIcon: ImageVector = Icons.Filled.ArrowBack,
+    navigationIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
@@ -73,7 +73,7 @@ fun MainAppScaffoldWithNavBar(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
-    navigationIcon: ImageVector = Icons.Filled.ArrowBack,
+    navigationIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
     onNavigationClick: (() -> Unit)? = null,
     hideNavigation: Boolean = false,
     actions: @Composable (RowScope.() -> Unit)? = null,
@@ -85,7 +85,7 @@ fun MainAppScaffoldWithNavBar(
 //    val activity = LocalContext.current.requireActivity()
 //    val viewModel: MainViewModel = hiltViewModel(activity)
 
-    var selectedBarItem by remember { mutableStateOf<NavBarItem>(NavBarItem.PEOPLE) }
+    var selectedBarItem by remember { mutableStateOf(NavBarItem.PEOPLE) }
 //    val selectedBarItem by viewModel.selectedNavBarFlow.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 //    val windowSize = currentWindowSize()
