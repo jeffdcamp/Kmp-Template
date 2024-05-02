@@ -1,33 +1,34 @@
 [versions]
-agp = "8.3.2"
+agp = "8.4.0"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
 androidx-activityCompose = "1.9.0"
 androidx-appcompat = "1.6.1"
 androidx-constraintlayout = "2.1.4"
-androidx-core-ktx = "1.13.0"
+androidx-core-ktx = "1.13.1"
 androidx-espresso-core = "3.5.1"
 androidx-material = "1.11.0"
 androidx-test-junit = "1.1.5"
-androidxComposeMaterial = "1.6.6"
+androidxComposeMaterial = "1.6.7"
 androidxComposeMaterial3 = "1.2.0-beta02"
-androidxComposeMaterial3Adaptive = "1.0.0-alpha11"
-androidxComposeMaterial3AdaptiveNavigation = "1.0.0-alpha05" # alpha06 causes crash until compose compiler 1.5.12+ (jetbrainsComposeCompiler) (https://issuetracker.google.com/issues/335384193)
-compose = "1.6.6"
-composePlugin = "1.6.2"
+androidxComposeMaterial3Adaptive = "1.0.0-alpha12"
+androidxComposeMaterial3AdaptiveNavigation = "1.0.0-alpha07" # alpha06 causes crash until compose compiler 1.5.12+ (jetbrainsComposeCompiler) (https://issuetracker.google.com/issues/335384193)
+compose = "1.6.7"
+composePlugin = "1.6.10-beta03" # https://github.com/JetBrains/compose-jb
 detekt = "1.23.6"
 downloadPlugin = "5.6.0"
 jetbrainsComposeCompiler = "1.5.10.1" # https://central.sonatype.com/artifact/org.jetbrains.compose.compiler/compiler/versions
 junit = "4.13.2"
 kermit = "2.0.3"
-kotlin = "1.9.23"
+kotlin = "2.0.0-RC2"
 kover = "0.7.6"
 versionsPlugin = "0.51.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 download = { id = "de.undercouch.download", version.ref = "downloadPlugin" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "composePlugin" }
