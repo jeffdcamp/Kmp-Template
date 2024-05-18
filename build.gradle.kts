@@ -14,11 +14,11 @@ plugins {
 }
 
 allprojects {
-    plugins.withId("org.jetbrains.compose") {
-        extensions.configure<org.jetbrains.compose.ComposeExtension> {
-            kotlinCompilerPlugin = libs.jetbrains.compose.compiler.get().toString()
-        }
-    }
+//    plugins.withId("org.jetbrains.compose") {
+//        extensions.configure<org.jetbrains.compose.ComposeExtension> {
+//            kotlinCompilerPlugin = libs.jetbrains.compose.compiler.get().toString()
+//        }
+//    }
 
     // Gradle Dependency Reports
     // ./gradlew -q app:dependencies --configuration debugCompileClasspath > deps.txt

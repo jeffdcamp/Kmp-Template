@@ -20,7 +20,7 @@ kotlin {
     }
 
     jvm("desktop")
-    
+
 //    listOf(
 //        iosX64(),
 //        iosArm64(),
@@ -31,10 +31,10 @@ kotlin {
 //            isStatic = true
 //        }
 //    }
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
@@ -45,14 +45,20 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
             implementation(compose.preview)
-//            implementation(libs.compose.material.iconsext)
+
+            // Code
+            implementation(libs.kotlin.serialization.json)
+            implementation(libs.kotlin.coroutines)
+            implementation(libs.kotlin.datetime)
             implementation(libs.kermit)
 
+            // UI
             implementation(libs.compose.material3.adaptive)
             implementation(libs.compose.material3.adaptive.navigation)
-
             implementation(compose.ui)
             implementation(compose.components.resources)
+//            implementation(libs.compose.material.iconsext)
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -114,15 +120,37 @@ compose.desktop {
 
 // ./gradlew koverHtmlReport
 // ./gradlew koverVerify
-koverReport {
-    defaults {
-        // adds the contents of the reports of `release` Android build variant to default reports
-        mergeWith("release")
-    }
-
-    verify {
-        rule {
-            minBound(0)
+kover {
+//    currentProject {
+//        createVariant("release") {
+////            addWithDependencies(/*dependent project*/)
+//        }
+//    }
+    reports {
+//        variant("release") {
+//            // reports settings
+//        }
+        verify {
+            rule {
+                minBound(0)
+            }
         }
     }
+
+    reports {
+
+    }
+
+//    reports {
+//        defaults {
+//            // adds the contents of the reports of `release` Android build variant to default reports
+//            mergeWith("release")
+//        }
+//
+//        verify {
+//            rule {
+//                minBound(0)
+//            }
+//        }
+//    }
 }
