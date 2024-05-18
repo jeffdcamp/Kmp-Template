@@ -25,6 +25,6 @@ private fun DirectoryContent() {
     Column {
         Text(StringResources.getStrings().about)
         Text(Resources.strings.about)
-        Text(Resources.strings.didItXTimes(5))
+        Text(Resources.strings.didItXTimes(5, "Jeff"))
     }
 }

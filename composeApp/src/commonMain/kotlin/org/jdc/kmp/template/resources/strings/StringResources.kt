@@ -6,7 +6,7 @@ import org.jdc.kmp.template.resources.strings.locales.EsStringResources
 interface StringResources {
     val about: String
     val stuff: String
-    fun didItXTimes(times: Int): String
+    fun didItXTimes(times: Int, name: String): String
 
     companion object {
         private val defaultStrings: StringResources by lazy { DefaultStringResources() }
@@ -16,7 +16,7 @@ interface StringResources {
             return when (locale) {
                 StringLocale.EN.value -> defaultStrings
                 StringLocale.ES.value -> esStrings
-                else -> error("Could not find StringResources for locale ($locale)")
+                else -> defaultStrings
             }
         }
 
@@ -27,5 +27,4 @@ interface StringResources {
             }
         }
     }
-
 }
