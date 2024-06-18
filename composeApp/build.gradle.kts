@@ -36,8 +36,11 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
+//            implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+
+            api(libs.koin.android)
+            api(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -45,6 +48,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
             implementation(compose.preview)
+            implementation(compose.components.uiToolingPreview)
 
             // Code
             implementation(libs.kotlin.serialization.json)
@@ -52,9 +56,17 @@ kotlin {
             implementation(libs.kotlin.datetime)
             implementation(libs.kermit)
 
+            // Inject
+            implementation(project.dependencies.platform(libs.koin.bom))
+            api(libs.koin.core)
+            api(libs.koin.compose)
+
             // UI
             implementation(libs.compose.material3.adaptive)
             implementation(libs.compose.material3.adaptive.navigation)
+            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.navigation.compose)
+
             implementation(compose.ui)
             implementation(compose.components.resources)
 //            implementation(libs.compose.material.iconsext)

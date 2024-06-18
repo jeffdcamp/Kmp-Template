@@ -4,6 +4,8 @@ import androidx.compose.ui.window.application
 import org.jdc.kmp.template.App
 
 fun main() = application {
+    KoinInitializer().init()
+
     Window(onCloseRequest = ::exitApplication, title = "Kmp-Template") {
         App(Locale.current.language)
     }
