@@ -5,6 +5,7 @@ import org.jdc.kmp.template.resources.strings.locales.EsStringResources
 
 interface StringResources {
     val about: String
+    val add: String
     val stuff: String
     fun didItXTimes(times: Int, name: String): String
 

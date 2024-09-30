@@ -1,5 +1,6 @@
 package org.jdc.kmp.template.ux.directory
 
-import org.jdc.kmp.template.ui.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
 
-object DirectoryRoute : SimpleNavComposeRoute("directory")
+@Serializable
+object DirectoryRoute

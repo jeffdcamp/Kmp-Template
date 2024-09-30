@@ -6,6 +6,9 @@ actual class KoinInitializer {
         startKoin {
             modules(
                 viewModelModule,
+                databaseModule,
+                datastoreModule,
+                coroutineModule,
                 appModule
             )
         }

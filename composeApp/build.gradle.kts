@@ -1,10 +1,16 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
+//    alias(libs.plugins.koin)
+
     alias(libs.plugins.versions) // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
     alias(libs.plugins.kover)
     alias(libs.plugins.download)
@@ -12,11 +18,9 @@ plugins {
 
 kotlin {
     androidTarget {
-//        compilations.all {
-//            kotlinOptions {
-//                jvmTarget = "1.8"
-//            }
-//        }
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
 
     jvm("desktop")
@@ -41,6 +45,7 @@ kotlin {
 
             api(libs.koin.android)
             api(libs.koin.androidx.compose)
+            implementation(libs.kotlin.coroutines)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -54,26 +59,37 @@ kotlin {
             implementation(libs.kotlin.serialization.json)
             implementation(libs.kotlin.coroutines)
             implementation(libs.kotlin.datetime)
+            implementation(libs.okio)
             implementation(libs.kermit)
+            implementation(libs.dbtools.kmp.commons)
 
             // Inject
             implementation(project.dependencies.platform(libs.koin.bom))
             api(libs.koin.core)
             api(libs.koin.compose)
+//            api(libs.koin.annotations)
 
             // UI
             implementation(libs.compose.material3.adaptive)
             implementation(libs.compose.material3.adaptive.navigation)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.navigation.compose)
+            implementation(libs.jetbrains.lifecycle.viewmodel)
+            implementation(libs.jetbrains.navigation.compose)
 
             implementation(compose.ui)
             implementation(compose.components.resources)
 //            implementation(libs.compose.material.iconsext)
 
+            // Database
+            implementation(libs.room.runtime)
+//            implementation(libs.room.ktx)
+            implementation(libs.sqlite.bundled)
+            implementation(libs.datastorePrefs)
+//            ksp(libs.androidx.room.compiler)
+//            implementation(libs.dbtools.room)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.kotlin.coroutines.swing)
 
 //            implementation(libs.compose.material3.adaptive)
 //            implementation(libs.compose.material3.adaptive.navigation)
@@ -128,6 +144,19 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+dependencies {
+    // Room
+    add("kspAndroid", libs.room.compiler)
+    add("kspDesktop", libs.room.compiler)
+//    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+//    add("kspIosX64", libs.androidx.room.compiler)
+//    add("kspIosArm64", libs.androidx.room.compiler)
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 // ./gradlew koverHtmlReport

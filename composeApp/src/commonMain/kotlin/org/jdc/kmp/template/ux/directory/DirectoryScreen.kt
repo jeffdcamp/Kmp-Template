@@ -1,15 +1,23 @@
 package org.jdc.kmp.template.ux.directory
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import org.jdc.kmp.template.inject.koinViewModel
 import org.jdc.kmp.template.resources.Resources
-import org.jdc.kmp.template.resources.strings.StringResources
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DirectoryScreen(
@@ -23,6 +31,17 @@ fun DirectoryScreen(
         navigationIconVisible = false,
 //        actions = { AppBarMenu(appBarMenuItems) },
 //        onNavigationClick = { navController.popBackStack() }
+        onNavigationClick = { navController.navigateUp() },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+//                    viewModel.testing123()
+//                    uiState.onNewClick()
+                },
+            ) {
+                Icon(Icons.Filled.Add, contentDescription = Resources.strings.add)
+            }
+        }
     ) {
         DirectoryContent(uiState)
     }
@@ -30,21 +49,15 @@ fun DirectoryScreen(
 
 @Composable
 private fun DirectoryContent(uiState: DirectoryUiState) {
-    Column {
-        Text(StringResources.getStrings().about)
-        Text(Resources.strings.about)
-        Text(Resources.strings.didItXTimes(5, "Jeff"))
+    val directoryList by uiState.directoryListFlow.collectAsState()
 
-//        Button(uiState.onNewClicked) { Text("Hello World") }
+    LazyColumn(modifier = Modifier.fillMaxWidth()) {
+        items(directoryList) { individual ->
+            ListItem(
+                headlineContent = { Text(individual.getFullName()) },
+                Modifier
+                    .clickable { uiState.onIndividualClick(individual.individualId) },
+            )
+        }
     }
-}
-
-@Preview
-@Composable
-fun Preview(modifier: Modifier = Modifier) {
-    val uiState = DirectoryUiState(
-
-    )
-
-    DirectoryContent(uiState)
 }

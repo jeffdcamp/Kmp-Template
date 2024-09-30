@@ -1,12 +1,17 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     // this is necessary to avoid the plugins to be loaded multiple times
     // in each subproject's classloader
     alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.android.library) apply false
-    alias(libs.plugins.jetbrainsCompose) apply false
+    alias(libs.plugins.jetbrains.compose) apply false
     alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kover) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.room) apply false
+//    alias(libs.plugins.koin) apply false
 
     alias(libs.plugins.download)
     alias(libs.plugins.detekt)
@@ -35,7 +40,7 @@ allprojects {
 
         // Compose
 //        addAll(listOf("material3", "ui", "ui-tooling-preview", "ui-test-junit4", "ui-test-manifest", "material3-window-size-class", "compiler"))
-//        addAll(listOf("window")) // material3 uses latest 1.1.0-alpha
+        addAll(listOf("room-ktx", "room-runtime", "navigation-compose", ":components-resources", "components-ui-tooling-preview"))
     }
 
     tasks.named<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask>("dependencyUpdates") {
@@ -62,7 +67,7 @@ allprojects {
         tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
             download {
                 onlyIf { !file("$projectDir/build/config/detektConfig.yml").exists() }
-                src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detekt/detektConfig-20231101.yml")
+                src("https://raw.githubusercontent.com/jeffdcamp/kmp-commons/master/detekt/detektConfig-latest.yml")
                 dest("$projectDir/build/config/detektConfig.yml")
             }
         }
@@ -70,7 +75,7 @@ allprojects {
         // make sure when running detekt, the config file is downloaded
         tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
             // Target version of the generated JVM bytecode. It is used for type resolution.
-            this.jvmTarget = "17"
+            this.jvmTarget = JvmTarget.JVM_17.target
             dependsOn("downloadDetektConfig")
         }
 
@@ -96,5 +101,4 @@ allprojects {
             dependsOn(tasks.withType<io.gitlab.arturbosch.detekt.Detekt>())
         }
     }
-
 }

@@ -2,6 +2,8 @@ package org.jdc.kmp.template.ux.directory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
+import kotlinx.coroutines.launch
 
 class DirectoryViewModel(
     getDirectoryUiStateUseCase: GetDirectoryUiStateUseCase
@@ -9,7 +11,7 @@ class DirectoryViewModel(
     val uiState: DirectoryUiState = getDirectoryUiStateUseCase(viewModelScope)// { navigate(it) }
 
 //    val uiState: DirectoryUiState = DirectoryUiState(
-//        onNewClicked = {
+//        onNewClick = {
 //            Logger.e { "Hello World!" }
 //        }
 //    )

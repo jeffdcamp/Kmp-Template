@@ -1,59 +1,93 @@
 [versions]
-agp = "8.2.0"
-kotlin = "2.0.0"
-kotlinxCoroutines = "1.9.0-RC"
-kotlinxSerialization = "1.7.0"
-kotlinxDateTime = "0.6.0"
+agp = "8.5.2" # only use the latest supported by KMP (https://kotlinlang.org/docs/multiplatform-compatibility-guide.html)
+kotlin = "2.0.20"
+kotlinxCoroutines = "1.9.0"
+kotlinxSerialization = "1.7.3"
+kotlinxDateTime = "0.6.1"
 
-android-compileSdk = "34"
+android-compileSdk = "35"
 android-minSdk = "24"
-android-targetSdk = "34"
-androidxActivityCompose = "1.9.0"
-androidxComposeMaterial3Adaptive = "1.0.0-beta03"
-androidxLifecycle = "2.8.2"
-navigation = "2.8.0-alpha02"
+android-targetSdk = "35"
+androidxActivityCompose = "1.9.2"
+androidxComposeMaterial3Adaptive = "1.0.0"
+androidxComposeMaterial3AdaptiveNavigation = "1.3.0"
+androidxLifecycle = "2.8.6"
 
-# "1.3.0-beta02"  Causes NoSuchMethodError on Desktop
-# Wait for org.jetbrains.compose to support Compose Runtime 1.7.0
-# (https://github.com/JetBrains/compose-multiplatform/releases)
-androidxComposeMaterial3AdaptiveNavigation = "1.0.0-alpha07"
-compose = "1.7.0-beta03"
-composePlugin = "1.6.11" # https://github.com/JetBrains/compose-jb
-detekt = "1.23.6"
+compose = "1.7.2"
+composePlugin = "1.7.0-beta02" # https://github.com/JetBrains/compose-jb
+dataStore = "1.1.1"
+dbtoolsKmpCommons = "0.0.1"
+detekt = "1.23.7"
 downloadPlugin = "5.6.0"
+jetbrainsLifecycle = "2.8.2"
+jetbrainsNavigation = "2.8.0-alpha10"
 kermit = "2.0.4"
-koin = "3.6.0-Beta4"
-kover = "0.8.1"
+koin = "4.0.0"
+koinKsp = "1.3.1"
+ktor = "3.0.0-rc-1"
+kover = "0.8.3"
+ksp = "2.0.20-1.0.25"
+okio = "3.9.1"
+room = "2.7.0-alpha08"
+sqlite = "2.5.0-alpha08"
 versionsPlugin = "0.51.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-android-library = { id = "com.android.library", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 download = { id = "de.undercouch.download", version.ref = "downloadPlugin" }
-jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "composePlugin" }
+jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "composePlugin" }
+#koin = { id = "io.insert-koin:koin-ksp-compiler", version.ref = "koinKsp" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+room = { id = "androidx.room", version.ref = "room" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidxLifecycle" }
-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation" }
 
 compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "androidxComposeMaterial3Adaptive" }
 compose-material3-adaptive-navigation = { module = "androidx.compose.material3:material3-adaptive-navigation-suite", version.ref = "androidxComposeMaterial3AdaptiveNavigation" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+dbtools-kmp-commons = { module = "org.dbtools.kmp:kmp-commons", version.ref = "dbtoolsKmpCommons" }
+datastorePrefs = { module = "androidx.datastore:datastore-preferences", version.ref = "dataStore" }
+
+jetbrains-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "jetbrainsLifecycle" }
+jetbrains-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "jetbrainsNavigation" }
+
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-compose = { module = "io.insert-koin:koin-compose" }
 koin-android = { module = "io.insert-koin:koin-android" }
+koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koinKsp" }
+koin-compiler-gradlePluginClasspath = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koinKsp" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
 
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlin-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinxCoroutines" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-client-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-resources = { module = "io.ktor:ktor-client-resources", version.ref = "ktor" }
+ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+
+okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
+
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
+sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }

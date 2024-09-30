@@ -14,6 +14,9 @@ actual class KoinInitializer(
             androidLogger()
             modules(
                 viewModelModule,
+                databaseModule,
+                datastoreModule,
+                coroutineModule,
                 appModule
             )
         }
