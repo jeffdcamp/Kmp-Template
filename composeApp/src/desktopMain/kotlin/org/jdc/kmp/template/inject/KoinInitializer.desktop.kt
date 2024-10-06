@@ -1,4 +1,5 @@
-import org.jdc.kmp.template.inject.appModule
+package org.jdc.kmp.template.inject
+
 import org.koin.core.context.startKoin
 
 actual class KoinInitializer {

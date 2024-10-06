@@ -1,3 +1,5 @@
+package org.jdc.kmp.template.inject
+
 import org.koin.core.module.Module
 
 expect val databaseModule: Module
