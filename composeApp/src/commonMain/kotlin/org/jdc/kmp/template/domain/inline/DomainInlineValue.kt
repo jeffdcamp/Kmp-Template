@@ -1,7 +1,9 @@
 package org.jdc.kmp.template.domain.inline
 
 import kotlinx.datetime.Instant
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class IndividualId(val value: String) {
     init {
         require(value.isNotBlank()) { "IndividualId cannot have a empty value" }

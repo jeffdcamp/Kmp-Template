@@ -11,11 +11,11 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import co.touchlab.kermit.Logger
 import okio.Path.Companion.toPath
+import org.dbtools.kmp.commons.ext.enumValueOfOrDefault
 import org.jdc.kmp.template.domain.type.DisplayThemeType
 import org.jdc.kmp.template.model.datastore.migration.DevicePreferenceMigration2
 import org.jdc.kmp.template.model.datastore.migration.DevicePreferenceMigration3
 import org.jdc.kmp.template.model.datastore.migration.PreferenceMigrations
-import org.jdc.kmp.template.util.ext.enumValueOfOrDefault
 import java.util.UUID
 
 class DevicePreferenceDataSource(

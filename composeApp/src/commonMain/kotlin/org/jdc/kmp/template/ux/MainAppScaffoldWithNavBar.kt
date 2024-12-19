@@ -33,9 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.DpSize
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -200,13 +198,6 @@ fun getNavigationSuiteType(windowSize: DpSize): NavigationSuiteType {
         NavigationSuiteType.NavigationBar
     }
 }
-
-@Composable
-private fun IntSize.toDpSize(): DpSize = with(LocalDensity.current) {
-    DpSize(width.toDp(), height.toDp())
-}
-
-
 
 
 enum class NavBarItem(

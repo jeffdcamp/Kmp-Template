@@ -1,12 +1,11 @@
 package org.jdc.kmp.template.model.db.main
 
+import androidx.room.AutoMigration
 import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
-import androidx.room.migration.Migration
-import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import org.jdc.kmp.template.model.db.KotlinDateTimeTextConverter
 import org.jdc.kmp.template.model.db.converter.DataValueClassTypeConverters
@@ -16,6 +15,8 @@ import org.jdc.kmp.template.model.db.main.household.HouseholdDao
 import org.jdc.kmp.template.model.db.main.household.HouseholdEntity
 import org.jdc.kmp.template.model.db.main.individual.IndividualDao
 import org.jdc.kmp.template.model.db.main.individual.IndividualEntity
+import org.jdc.kmp.template.model.db.main.migration.MainAutoMigrationSpec3
+import org.jdc.kmp.template.model.db.main.migration.MainMigration2
 
 @Database(
     entities = [
@@ -25,7 +26,10 @@ import org.jdc.kmp.template.model.db.main.individual.IndividualEntity
     views = [
         DirectoryItemEntityView::class
     ],
-    version = 1
+    autoMigrations = [
+        AutoMigration(from = 2, to = 3, spec = MainAutoMigrationSpec3::class)
+    ],
+    version = 3
 )
 @ConstructedBy(MainDatabaseConstructor::class)
 @TypeConverters(KotlinDateTimeTextConverter::class, DataValueClassTypeConverters::class)
@@ -36,25 +40,16 @@ abstract class MainDatabase : RoomDatabase() {
 
     companion object {
         const val DATABASE_NAME = "main.db"
-//        val DATABASE_VIEW_QUERIES = listOf(
-//            DatabaseViewQuery(DirectoryItemEntityView.VIEW_NAME, DirectoryItemEntityView.VIEW_QUERY)
-//        )
-
-        fun getMainDatabase(builder: RoomDatabase.Builder<MainDatabase>): MainDatabase {
+        fun getDatabase(builder: Builder<MainDatabase>): MainDatabase {
             return builder
-                .addMigrations(object : Migration(1, 2) {
-                    override fun migrate(connection: SQLiteConnection) {
-                        super.migrate(connection)
-                    }
-                })
-//        .addMigrations(MIGRATIONS)
-//        .fallbackToDestructiveMigrationOnDowngrade(true)
+                .addMigrations(MainMigration2)
                 .setDriver(BundledSQLiteDriver())
-//                .setQueryCoroutineContext(Dispatchers.IO)
                 .build()
         }
     }
 }
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-expect object MainDatabaseConstructor : RoomDatabaseConstructor<MainDatabase>
+@Suppress("NO_ACTUAL_FOR_EXPECT")
+expect object MainDatabaseConstructor : RoomDatabaseConstructor<MainDatabase> {
+    override fun initialize(): MainDatabase
+}

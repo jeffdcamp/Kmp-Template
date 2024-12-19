@@ -12,10 +12,10 @@ import org.jdc.kmp.template.domain.inline.LastModifiedTime
 import org.jdc.kmp.template.domain.inline.LastName
 import org.jdc.kmp.template.domain.inline.Phone
 import org.jdc.kmp.template.domain.type.IndividualType
-import randomUUID
+import kotlin.uuid.Uuid
 
 data class Individual(
-    val id: IndividualId = IndividualId(randomUUID()),
+    val id: IndividualId = IndividualId(Uuid.random().toString()),
     val householdId: HouseholdId? = null,
 
     val individualType: IndividualType = IndividualType.HEAD,

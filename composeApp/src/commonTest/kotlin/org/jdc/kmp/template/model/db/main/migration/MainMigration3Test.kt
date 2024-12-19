@@ -1,0 +1,65 @@
+package org.jdc.kmp.template.model.db.main.migration
+
+import androidx.room.testing.MigrationTestHelper
+import androidx.sqlite.SQLiteConnection
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import androidx.sqlite.execSQL
+import androidx.sqlite.use
+import assertk.assertThat
+import assertk.assertions.isEqualTo
+import assertk.assertions.isTrue
+import okio.FileSystem
+import okio.Path.Companion.toPath
+import org.dbtools.room.ext.deleteDatabaseFiles
+import org.dbtools.room.ext.getColumnIndexOrThrow
+import org.jdc.kmp.template.model.db.main.MainDatabase
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+
+class MainMigration3Test {
+
+    val databasePath = "build/test/db/${MainDatabase.DATABASE_NAME}".toPath()
+
+    val mainDatabaseMigrationTestHelper = MigrationTestHelper(
+        schemaDirectoryPath = "schemas".toPath().toNioPath(),
+        driver = BundledSQLiteDriver(),// sqliteDriver,
+        databaseClass = MainDatabase::class,
+        databasePath = databasePath.toNioPath()
+    )
+
+    @BeforeTest
+    fun beforeTest() {
+        FileSystem.SYSTEM.deleteDatabaseFiles(databasePath)
+    }
+
+    @Test
+    fun emptyMigrationTest() {
+        // Create the database at version 1
+        val newConnection = mainDatabaseMigrationTestHelper.createDatabase(version = 2)
+        newConnection.close()
+    }
+
+    @Test
+    fun migrationTest() {
+        // Create the database at version 1
+        val newConnection = mainDatabaseMigrationTestHelper.createDatabase(version = 2)
+
+        // Insert some data that should be preserved
+        newConnection.execSQL(
+            "INSERT INTO Individual (id, firstName, individualType, availabley, created, lastModified) VALUES ('1', 'Jeff', 'HEAD', 1, '2024-01-01T12:00:00Z', '2024-01-01T12:00:00Z')"
+        )
+        newConnection.close()
+
+        // Migrate the database to version 3
+        val migratedConnection = mainDatabaseMigrationTestHelper.runMigrationsAndValidate(
+            version = 3,
+            listOf(org.jdc.kmp.template.model.db.main.MainDatabase_AutoMigration_2_3_Impl())
+        )
+        migratedConnection.prepare("SELECT available FROM Individual WHERE id = '1'").use { statement ->
+            // Validates data is preserved between migrations.
+            assertThat(statement.step()).isTrue()
+            assertThat(statement.getText(statement.getColumnIndexOrThrow("available"))).isEqualTo("1")
+        }
+        migratedConnection.close()
+    }
+}

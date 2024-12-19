@@ -1,3 +1,4 @@
+
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -9,6 +10,7 @@ plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+//    alias(libs.plugins.mokoResources)
 //    alias(libs.plugins.koin)
 
     alias(libs.plugins.versions) // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
@@ -23,7 +25,20 @@ kotlin {
         }
     }
 
-    jvm("desktop")
+    compilerOptions {
+        freeCompilerArgs.set(
+            listOf(
+                "-opt-in=kotlin.uuid.ExperimentalUuidApi",
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            )
+        )
+    }
+
+    jvm("desktop") {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_21)
+        }
+    }
 
 //    listOf(
 //        iosX64(),
@@ -43,16 +58,17 @@ kotlin {
 //            implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
 
-            api(libs.koin.android)
-            api(libs.koin.androidx.compose)
+            implementation(libs.koin.android)
             implementation(libs.kotlin.coroutines)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
             implementation(compose.materialIconsExtended)
-            implementation(compose.preview)
+//            implementation(compose.preview)
             implementation(compose.components.uiToolingPreview)
 
             // Code
@@ -62,37 +78,62 @@ kotlin {
             implementation(libs.okio)
             implementation(libs.kermit)
             implementation(libs.dbtools.kmp.commons)
+            implementation(libs.dbtools.kmp.commons.compose)
+            implementation(libs.dbtools.kmp.room)
 
             // Inject
-            implementation(project.dependencies.platform(libs.koin.bom))
-            api(libs.koin.core)
-            api(libs.koin.compose)
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+//            implementation(libs.koin.compose.viewmodel.navigation)
 //            api(libs.koin.annotations)
 
             // UI
             implementation(libs.compose.material3.adaptive)
             implementation(libs.compose.material3.adaptive.navigation)
-            implementation(libs.jetbrains.lifecycle.viewmodel)
+//            implementation(libs.jetbrains.lifecycle.viewmodel)
             implementation(libs.jetbrains.navigation.compose)
 
-            implementation(compose.ui)
-            implementation(compose.components.resources)
 //            implementation(libs.compose.material.iconsext)
+
+            // Resources
+//            implementation(libs.moko.resources)
+//            implementation(libs.moko.resources.compose)
 
             // Database
             implementation(libs.room.runtime)
-//            implementation(libs.room.ktx)
+//            implementation(libs.room.ktx) // doesn't seem to be needed... and causes issues with Desktop (adds kotlinx-coroutines-android)
             implementation(libs.sqlite.bundled)
             implementation(libs.datastorePrefs)
 //            ksp(libs.androidx.room.compiler)
 //            implementation(libs.dbtools.room)
+
+            // firebase
+//            implementation(libs.firebase.gitlive.auth)
+            implementation(libs.firebase.gitlive.analytics)
+//            implementation(libs.firebase.gitlive.config)
+//            implementation(libs.firebase.gitlive.crashlytics)
+//            implementation(libs.firebase.gitlive.firestore)
+//            implementation(libs.firebase.gitlive.functions)
+        }
+        commonTest.dependencies {
+            implementation(libs.room.testing)
+            implementation(libs.kotlin.test)
+            implementation(libs.assertk)
+            implementation(libs.mockK)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
-            implementation(libs.kotlin.coroutines.swing)
+//            implementation(libs.kotlin.coroutines.swing)
 
 //            implementation(libs.compose.material3.adaptive)
 //            implementation(libs.compose.material3.adaptive.navigation)
+
+            // Work-around for issue that somehow kotlinx-coroutines-android is being included with desktop dependencies (room-ktx?)
+            // https://youtrack.jetbrains.com/issue/CMP-767/Module-with-the-Main-dispatcher-had-failed-to-initialize
+//            configurations.commonMainApi {
+//                exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-android")
+//            }
         }
     }
 }
@@ -112,9 +153,9 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
-    androidResources {
-        generateLocaleConfig = true
-    }
+//    androidResources {
+//        generateLocaleConfig = true
+//    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -128,9 +169,12 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
     dependencies {
-        debugImplementation(libs.compose.ui.tooling)
+        coreLibraryDesugaring(libs.android.desugar)
+        debugImplementation(compose.uiTooling)
+//        debugImplementation(libs.compose.ui.tooling)
     }
 }
 
@@ -159,39 +203,28 @@ room {
     schemaDirectory("$projectDir/schemas")
 }
 
+// ===== String and other Resources =====
+// ./gradlew generateMRcommonMain
+//multiplatformResources {
+//    resourcesPackage.set("org.jdc.kmp.template") // required
+//    resourcesClassName.set("Resources2") // optional, default MR
+////    resourcesVisibility.set(MRVisibility.Public) // optional, default Public
+////    iosBaseLocalizationRegion.set("en") // optional, default "en"
+////    iosMinimalDeploymentTarget.set("11.0") // optional, default "9.0"
+//}
+
 // ./gradlew koverHtmlReport
 // ./gradlew koverVerify
-kover {
-//    currentProject {
-//        createVariant("release") {
-////            addWithDependencies(/*dependent project*/)
-//        }
-//    }
-    reports {
-//        variant("release") {
-//            // reports settings
-//        }
-        verify {
-            rule {
-                minBound(0)
-            }
-        }
-    }
-
-    reports {
-
-    }
-
+//kover {
 //    reports {
-//        defaults {
-//            // adds the contents of the reports of `release` Android build variant to default reports
-//            mergeWith("release")
-//        }
-//
 //        verify {
 //            rule {
 //                minBound(0)
 //            }
 //        }
 //    }
-}
+//
+//    reports {
+//
+//    }
+//}

@@ -10,11 +10,8 @@ import org.jdc.kmp.template.model.datastore.DevicePreferenceDataSource
 import org.jdc.kmp.template.model.datastore.UserDataStore
 import org.jdc.kmp.template.model.datastore.UserPreferenceDataSource
 import org.jdc.kmp.template.model.db.main.MainDatabase
-import org.jdc.kmp.template.ux.directory.DirectoryViewModel
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
-
 
 actual val databaseModule = module {
     single<RoomDatabase.Builder<MainDatabase>> {
@@ -53,8 +50,4 @@ actual val coroutineModule = module {
             main = Dispatchers.Main,
         )
     }
-}
-
-actual val viewModelModule = module {
-    viewModelOf(::DirectoryViewModel)
 }

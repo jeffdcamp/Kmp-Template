@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                 }"
             }
 
-            App(Locale.current.language)
+            ComposeApp()
         }
     }
 }

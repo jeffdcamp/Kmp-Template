@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.kover) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.room) apply false
+    alias(libs.plugins.mokoResources) apply false
 //    alias(libs.plugins.koin) apply false
 
     alias(libs.plugins.download)

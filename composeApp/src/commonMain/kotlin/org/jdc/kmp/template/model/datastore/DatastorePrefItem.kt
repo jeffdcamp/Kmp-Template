@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.jdc.kmp.template.util.ext.mapDistinct
+import org.dbtools.kmp.commons.ext.mapDistinct
 
 interface DatastorePrefItem<T: Any?> {
     val flow: Flow<T>

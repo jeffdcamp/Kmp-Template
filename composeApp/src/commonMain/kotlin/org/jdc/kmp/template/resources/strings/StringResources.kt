@@ -6,6 +6,25 @@ import org.jdc.kmp.template.resources.strings.locales.EsStringResources
 interface StringResources {
     val about: String
     val add: String
+    val alarmTime: String
+    val available: String
+    val birthDate: String
+    val edit: String
+    val editIndividual: String
+    val email: String
+    val firstName: String
+    val delete: String
+    val deleteIndividualConfirm: String
+    val individual: String
+    val individualType: String
+    val invalidEmail: String
+    val invalidBirthDate: String
+    val lastName: String
+    val phone: String
+    val required: String
+    val save: String
+    val search: String
+    val settings: String
     val stuff: String
     fun didItXTimes(times: Int, name: String): String
 
