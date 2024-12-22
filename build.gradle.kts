@@ -34,7 +34,7 @@ allprojects {
     // ./gradlew dependencyUpdates -Drevision=release
     // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
     apply(plugin = rootProject.libs.plugins.versions.get().pluginId)
-    val excludeVersionContaining = listOf("alpha", "eap", "M1", "dev") // example: "alpha", "beta"
+    val excludeVersionContaining = listOf("alpha", "eap", "M1", "dev", "SNAPSHOT") // example: "alpha", "beta"
     // some artifacts may be OK to check for "alpha"... add these exceptions here
     val ignoreArtifacts = buildList {
         addAll(listOf("room-compiler"))
