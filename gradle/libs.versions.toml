@@ -57,62 +57,62 @@ room = { id = "androidx.room", version.ref = "room" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [libraries]
-android-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
-androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidxLifecycle" }
+android-desugar = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivityCompose" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidxLifecycle" }
 
-assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
+assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertk" }
 compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "androidxComposeMaterial3Adaptive" }
-compose-material3-adaptive-navigation = { module = "androidx.compose.material3:material3-adaptive-navigation-suite", version.ref = "androidxComposeMaterial3AdaptiveNavigation" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-dbtools-kmp-commons = { module = "org.dbtools.kmp:kmp-commons", version.ref = "dbtoolsKmpCommons" }
-dbtools-kmp-commons-compose = { module = "org.dbtools.kmp:kmp-commons-compose", version.ref = "dbtoolsKmpCommonsCompose" }
-dbtools-kmp-room = { module = "org.dbtools:dbtools-room", version.ref = "dbtoolsKmpRoom" }
-datastorePrefs = { module = "androidx.datastore:datastore-preferences", version.ref = "dataStore" }
+compose-material3-adaptive-navigation = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version.ref = "androidxComposeMaterial3AdaptiveNavigation" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
+dbtools-kmp-commons = { group = "org.dbtools.kmp", name = "kmp-commons", version.ref = "dbtoolsKmpCommons" }
+dbtools-kmp-commons-compose = { group = "org.dbtools.kmp", name = "kmp-commons-compose", version.ref = "dbtoolsKmpCommonsCompose" }
+dbtools-kmp-room = { group = "org.dbtools", name = "dbtools-room", version.ref = "dbtoolsKmpRoom" }
+datastorePrefs = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 
-firebase-gitlive-auth = { module = "dev.gitlive:firebase-auth", version.ref = "firebaseGitLive" }
-firebase-gitlive-analytics = { module = "dev.gitlive:firebase-analytics", version.ref = "firebaseGitLive" }
-firebase-gitlive-config = { module = "dev.gitlive:firebase-config", version.ref = "firebaseGitLive" }
-firebase-gitlive-crashlytics = { module = "dev.gitlive:firebase-crashlytics", version.ref = "firebaseGitLive" }
-firebase-gitlive-firestore = { module = "dev.gitlive:firebase-firestore", version.ref = "firebaseGitLive" }
-firebase-gitlive-functions = { module = "dev.gitlive:firebase-functions", version.ref = "firebaseGitLive" }
+firebase-gitlive-auth = { group = "dev.gitlive", name = "firebase-auth", version.ref = "firebaseGitLive" }
+firebase-gitlive-analytics = { group = "dev.gitlive", name = "firebase-analytics", version.ref = "firebaseGitLive" }
+firebase-gitlive-config = { group = "dev.gitlive", name = "firebase-config", version.ref = "firebaseGitLive" }
+firebase-gitlive-crashlytics = { group = "dev.gitlive", name = "firebase-crashlytics", version.ref = "firebaseGitLive" }
+firebase-gitlive-firestore = { group = "dev.gitlive", name = "firebase-firestore", version.ref = "firebaseGitLive" }
+firebase-gitlive-functions = { group = "dev.gitlive", name = "firebase-functions", version.ref = "firebaseGitLive" }
 
-jetbrains-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "jetbrainsLifecycle" }
-jetbrains-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "jetbrainsNavigation" }
+jetbrains-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "jetbrainsLifecycle" }
+jetbrains-navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "jetbrainsNavigation" }
 
-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 
-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCompose" }
-koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koinComposeViewModel" }
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koinCompose" }
+koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koinComposeViewModel" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 
-kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
-kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
-kotlin-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinxCoroutines" }
-kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
-kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlin-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlin-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinxCoroutines" }
+kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateTime" }
+kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 
-ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
-ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
-ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
-ktor-client-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
-ktor-client-resources = { module = "io.ktor:ktor-client-resources", version.ref = "ktor" }
-ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-resources = { group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor" }
+ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
-mockK = { module = "io.mockk:mockk", version.ref = "mockK" }
+mockK = { group = "io.mockk", name = "mockk", version.ref = "mockK" }
 
-moko-resources = { module = "dev.icerock.moko:resources", version.ref = "mokoResources" }
-moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "mokoResources" }
-moko-resources-test = { module = "dev.icerock.moko:resources-test", version.ref = "mokoResources" }
+moko-resources = { group = "dev.icerock.moko", name = "resources", version.ref = "mokoResources" }
+moko-resources-compose = { group = "dev.icerock.moko", name = "resources-compose", version.ref = "mokoResources" }
+moko-resources-test = { group = "dev.icerock.moko", name = "resources-test", version.ref = "mokoResources" }
 
-okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
+okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
 
-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
+sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
