@@ -24,11 +24,6 @@ val appModule = module {
     single<MainDatabase> {
         val builder: RoomDatabase.Builder<MainDatabase> = get()
         MainDatabase.getDatabase(builder)
-//        builder
-//            .fallbackToDestructiveMigrationOnDowngrade(dropAllTables = true)
-//            .fallbackToDestructiveMigration(dropAllTables = true)
-//            .setDriver(BundledSQLiteDriver())
-//            .build()
     }
 
     singleOf(::UserPreferenceDataSource)
