@@ -15,9 +15,9 @@ import kotlin.test.Test
 
 class MainMigration2Test {
 
-    val databasePath = "build/test/db/${MainDatabase.DATABASE_NAME}".toPath()
+    private val databasePath = "build/test/db/${MainDatabase.DATABASE_NAME}".toPath()
 
-    val mainDatabaseMigrationTestHelper = MigrationTestHelper(
+    private val mainDatabaseMigrationTestHelper = MigrationTestHelper(
         schemaDirectoryPath = "schemas".toPath().toNioPath(),
         driver = BundledSQLiteDriver(),// sqliteDriver,
         databaseClass = MainDatabase::class,

@@ -1,10 +1,8 @@
 package org.jdc.kmp.template.model.db.main.migration
 
 import androidx.room.testing.MigrationTestHelper
-import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.sqlite.execSQL
-import androidx.sqlite.use
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isTrue
@@ -18,9 +16,9 @@ import kotlin.test.Test
 
 class MainMigration3Test {
 
-    val databasePath = "build/test/db/${MainDatabase.DATABASE_NAME}".toPath()
+    private val databasePath = "build/test/db/${MainDatabase.DATABASE_NAME}".toPath()
 
-    val mainDatabaseMigrationTestHelper = MigrationTestHelper(
+    private val mainDatabaseMigrationTestHelper = MigrationTestHelper(
         schemaDirectoryPath = "schemas".toPath().toNioPath(),
         driver = BundledSQLiteDriver(),// sqliteDriver,
         databaseClass = MainDatabase::class,
