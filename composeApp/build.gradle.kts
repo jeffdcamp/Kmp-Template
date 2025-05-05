@@ -40,6 +40,8 @@ kotlin {
         }
     }
 
+//    linuxX64()
+
 //    listOf(
 //        iosX64(),
 //        iosArm64(),
@@ -119,6 +121,7 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.room.testing)
             implementation(libs.kotlin.test)
+            implementation(libs.kotlin.coroutines.test)
             implementation(libs.assertk)
             implementation(libs.mockK)
         }
