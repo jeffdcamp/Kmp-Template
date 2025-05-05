@@ -13,10 +13,7 @@ import kotlin.time.Duration.Companion.hours
  * 3. When finished: /home/<your username here>/Android/Sdk/platform-tools/adb shell setprop debug.firebase.analytics.app .none.
  *
  */
-class DefaultAnalytics(
-//    private val firebaseAnalytics: FirebaseAnalytics
-)
-    : Analytics {
+class DefaultAnalytics : Analytics {
     private var lastDimensionUpdate: Instant? = null
 
     init {

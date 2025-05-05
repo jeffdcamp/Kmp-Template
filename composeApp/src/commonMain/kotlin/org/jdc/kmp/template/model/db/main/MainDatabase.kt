@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import org.jdc.kmp.template.model.db.KotlinDateTimeTextConverter
+import org.dbtools.room.converter.KotlinDateTimeTextConverter
 import org.jdc.kmp.template.model.db.converter.DataValueClassTypeConverters
 import org.jdc.kmp.template.model.db.main.directoryitem.DirectoryItemDao
 import org.jdc.kmp.template.model.db.main.directoryitem.DirectoryItemEntityView
