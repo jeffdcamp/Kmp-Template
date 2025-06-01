@@ -19,7 +19,7 @@ class MainMigration2Test {
 
     private val mainDatabaseMigrationTestHelper = MigrationTestHelper(
         schemaDirectoryPath = "schemas".toPath().toNioPath(),
-        driver = BundledSQLiteDriver(),// sqliteDriver,
+        driver = BundledSQLiteDriver(),
         databaseClass = MainDatabase::class,
         databasePath = databasePath.toNioPath()
     )
@@ -45,17 +45,17 @@ class MainMigration2Test {
     @Test
     fun migrationTest() {
         // Create the database at version 1
-        val newConnection = mainDatabaseMigrationTestHelper.createDatabase(version = 1)
+        val v1Connection = mainDatabaseMigrationTestHelper.createDatabase(version = 1)
         // no data needs to be inserted for this test
-        newConnection.close()
+        v1Connection.close()
 
         // Migrate the database to version 2
-        val migratedConnection: SQLiteConnection = mainDatabaseMigrationTestHelper.runMigrationsAndValidate(
+        val v2Connection: SQLiteConnection = mainDatabaseMigrationTestHelper.runMigrationsAndValidate(
             version = 2,
             migrations = listOf(MainMigration2)
         )
 
-        assertThat(migratedConnection.columnExists("Individual", "extra")).isFalse()
-        migratedConnection.close()
+        assertThat(v2Connection.columnExists("Individual", "extra")).isFalse()
+        v2Connection.close()
     }
 }

@@ -39,25 +39,25 @@ class MainMigration3Test {
 
     @Test
     fun migrationTest() {
-        // Create the database at version 1
-        val newConnection = mainDatabaseMigrationTestHelper.createDatabase(version = 2)
+        // Create the database at version 2
+        val v2Connection = mainDatabaseMigrationTestHelper.createDatabase(version = 2)
 
         // Insert some data that should be preserved
-        newConnection.execSQL(
+        v2Connection.execSQL(
             "INSERT INTO Individual (id, firstName, individualType, availabley, created, lastModified) VALUES ('1', 'Jeff', 'HEAD', 1, '2024-01-01T12:00:00Z', '2024-01-01T12:00:00Z')"
         )
-        newConnection.close()
+        v2Connection.close()
 
         // Migrate the database to version 3
-        val migratedConnection = mainDatabaseMigrationTestHelper.runMigrationsAndValidate(
+        val v3Connection = mainDatabaseMigrationTestHelper.runMigrationsAndValidate(
             version = 3,
             listOf(org.jdc.kmp.template.model.db.main.MainDatabase_AutoMigration_2_3_Impl())
         )
-        migratedConnection.prepare("SELECT available FROM Individual WHERE id = '1'").use { statement ->
+        v3Connection.prepare("SELECT available FROM Individual WHERE id = '1'").use { statement ->
             // Validates data is preserved between migrations.
             assertThat(statement.step()).isTrue()
             assertThat(statement.getText(statement.getColumnIndexOrThrow("available"))).isEqualTo("1")
         }
-        migratedConnection.close()
+        v3Connection.close()
     }
 }

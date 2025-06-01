@@ -66,11 +66,10 @@ class DevicePreferenceDataSource(
     companion object {
         private const val VERSION = 3
 
-        fun createDataStore(producePath: () -> String): DataStore<Preferences> =
-            PreferenceDataStoreFactory.createWithPath(
+        fun createDataStore(producePath: () -> String): DataStore<Preferences> {
+            return PreferenceDataStoreFactory.createWithPath(
                 migrations = listOf(
                     PreferenceMigrations(VERSION, listOf(DevicePreferenceMigration2, DevicePreferenceMigration3))
-
                 ),
                 produceFile = { producePath().toPath() },
                 corruptionHandler = ReplaceFileCorruptionHandler {
@@ -78,6 +77,7 @@ class DevicePreferenceDataSource(
                     emptyPreferences()
                 }
             )
+        }
     }
 }
 

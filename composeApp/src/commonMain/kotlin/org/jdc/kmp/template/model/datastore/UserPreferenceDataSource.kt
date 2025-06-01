@@ -26,13 +26,14 @@ class UserPreferenceDataSource(
     companion object {
         private const val VERSION = 1
 
-        fun createDataStore(producePath: () -> String): DataStore<Preferences> =
-            PreferenceDataStoreFactory.createWithPath(
+        fun createDataStore(producePath: () -> String): DataStore<Preferences> {
+            return PreferenceDataStoreFactory.createWithPath(
                 migrations = listOf(
                     PreferenceMigrations(VERSION, emptyList())
 
                 ),
                 produceFile = { producePath().toPath() }
             )
+        }
     }
 }
