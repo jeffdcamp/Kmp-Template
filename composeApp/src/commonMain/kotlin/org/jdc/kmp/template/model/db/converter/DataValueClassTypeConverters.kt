@@ -1,7 +1,7 @@
 package org.jdc.kmp.template.model.db.converter
 
 import androidx.room.TypeConverter
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import org.jdc.kmp.template.domain.inline.CreatedTime
 import org.jdc.kmp.template.domain.inline.Email
 import org.jdc.kmp.template.domain.inline.FirstName

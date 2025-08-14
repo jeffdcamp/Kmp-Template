@@ -1,3 +1,5 @@
+
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -19,48 +21,31 @@ plugins {
     alias(libs.plugins.versions)
 }
 
+// ===== Gradle Dependency Check =====
+// ./gradlew dependencyUpdates -Drevision=release
+// ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
+tasks.withType<DependencyUpdatesTask> {
+    rejectVersionIf {
+        isNonStable(
+            version = candidate.version,
+            includeStablePreRelease = false
+        )
+    }
+}
+
+fun isNonStable(version: String, includeStablePreRelease: Boolean): Boolean {
+    val stablePreReleaseKeyword = listOf("RC", "BETA").any { version.uppercase().contains(it) }
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
+    val regex = "^[0-9,.v-]+$".toRegex()
+    val isStable = if (includeStablePreRelease) {
+        stableKeyword || regex.matches(version) || stablePreReleaseKeyword
+    } else {
+        stableKeyword || regex.matches(version)
+    }
+    return isStable.not()
+}
+
 allprojects {
-//    plugins.withId("org.jetbrains.compose") {
-//        extensions.configure<org.jetbrains.compose.ComposeExtension> {
-//            kotlinCompilerPlugin = libs.jetbrains.compose.compiler.get().toString()
-//        }
-//    }
-
-    // Gradle Dependency Reports
-    // ./gradlew -q app:dependencies --configuration debugCompileClasspath > deps.txt
-    // ./gradlew app:dependencies --scan.
-
-    // Gradle Dependency Check
-    // ./gradlew dependencyUpdates -Drevision=release
-    // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
-    apply(plugin = rootProject.libs.plugins.versions.get().pluginId)
-    val excludeVersionContaining = listOf("alpha", "eap", "M1", "dev", "SNAPSHOT", "SNAPSHOT+default") // example: "alpha", "beta"
-    // some artifacts may be OK to check for "alpha"... add these exceptions here
-    val ignoreArtifacts = buildList {
-        addAll(listOf("room-compiler"))
-
-        // Compose
-//        addAll(listOf("material3", "ui", "ui-tooling-preview", "ui-test-junit4", "ui-test-manifest", "material3-window-size-class", "compiler"))
-        addAll(listOf("room-ktx", "room-runtime", "navigation-compose", ":components-resources", "components-ui-tooling-preview"))
-    }
-
-    tasks.named<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask>("dependencyUpdates") {
-        resolutionStrategy {
-            componentSelection {
-                all {
-                    if (ignoreArtifacts.contains(candidate.module).not()) {
-                        val rejected = excludeVersionContaining.any { qualifier ->
-                            candidate.version.matches(Regex("(?i).*[.-]$qualifier[.\\d-+]*"))
-                        }
-                        if (rejected) {
-                            reject("Release candidate")
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     // ===== Detekt =====
     // Known KMP issues https://github.com/detekt/detekt/issues/5611
     apply(plugin = rootProject.libs.plugins.detekt.get().pluginId).also {
@@ -68,7 +53,7 @@ allprojects {
         tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
             download {
                 onlyIf { !file("$projectDir/build/config/detektConfig.yml").exists() }
-                src("https://raw.githubusercontent.com/jeffdcamp/kmp-commons/master/detekt/detektConfig-latest.yml")
+                src("https://mobile-cdn.churchofjesuschrist.org/android/build/detekt/detektConfig-20231101.yml")
                 dest("$projectDir/build/config/detektConfig.yml")
             }
         }

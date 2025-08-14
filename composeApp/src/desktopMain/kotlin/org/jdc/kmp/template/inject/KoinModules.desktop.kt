@@ -2,6 +2,7 @@ package org.jdc.kmp.template.inject
 
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import org.jdc.kmp.template.model.datastore.DatastoreUtil
 import org.jdc.kmp.template.model.datastore.DatastoreUtil.createDataStoreFilename
@@ -16,7 +17,7 @@ import java.io.File
 actual val databaseModule = module {
     single<RoomDatabase.Builder<MainDatabase>> {
         val dbFile = File(System.getProperty("java.io.tmpdir"), MainDatabase.DATABASE_NAME)
-        println("DB File: ${dbFile.absolutePath}")
+        Logger.i { "DB File: ${dbFile.absolutePath}" }
         Room.databaseBuilder<MainDatabase>(
             name = dbFile.absolutePath,
         )

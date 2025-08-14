@@ -1,6 +1,6 @@
 package org.jdc.kmp.template.domain
 
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import org.jdc.kmp.template.domain.inline.CreatedTime

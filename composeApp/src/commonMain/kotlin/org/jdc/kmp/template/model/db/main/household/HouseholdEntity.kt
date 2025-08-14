@@ -2,7 +2,7 @@ package org.jdc.kmp.template.model.db.main.household
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import org.jdc.kmp.template.domain.inline.HouseholdId
 import org.jdc.kmp.template.domain.inline.LastName
 

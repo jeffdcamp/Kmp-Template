@@ -26,12 +26,11 @@ kotlin {
     }
 
     compilerOptions {
-        freeCompilerArgs.set(
-            listOf(
-                "-opt-in=kotlin.uuid.ExperimentalUuidApi",
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            )
-        )
+        compilerOptions {
+            optIn.add("kotlin.time.ExperimentalTime")
+            optIn.add("kotlin.uuid.ExperimentalUuidApi")
+            optIn.add("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        }
     }
 
     jvm("desktop") {
@@ -101,6 +100,11 @@ kotlin {
             // Resources
 //            implementation(libs.moko.resources)
 //            implementation(libs.moko.resources.compose)
+
+            // Navigation
+//            implementation(libs.androidx.navigation3.runtime)
+//            implementation(libs.androidx.navigation3.ui)
+//            implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 
             // Database
             implementation(libs.room.runtime)

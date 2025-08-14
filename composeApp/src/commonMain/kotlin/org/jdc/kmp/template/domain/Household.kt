@@ -1,6 +1,6 @@
 package org.jdc.kmp.template.domain
 
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import org.jdc.kmp.template.domain.inline.CreatedTime
 import org.jdc.kmp.template.domain.inline.HouseholdId
 import org.jdc.kmp.template.domain.inline.LastModifiedTime
