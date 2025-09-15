@@ -3,7 +3,6 @@ package org.jdc.kmp.template.inject
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import kotlinx.coroutines.Dispatchers
-import org.jdc.kmp.template.model.datastore.DatastoreUtil
 import org.jdc.kmp.template.model.datastore.DatastoreUtil.createDataStoreFilename
 import org.jdc.kmp.template.model.datastore.DeviceDataStore
 import org.jdc.kmp.template.model.datastore.DevicePreferenceDataSource
@@ -28,7 +27,7 @@ actual val datastoreModule = module {
     single<UserDataStore> {
         UserDataStore(
             UserPreferenceDataSource.createDataStore {
-                androidContext().filesDir.resolve(createDataStoreFilename(DatastoreUtil.USER)).absolutePath
+                androidContext().filesDir.resolve(createDataStoreFilename(UserPreferenceDataSource.NAME)).absolutePath
             }
         )
     }
@@ -36,7 +35,7 @@ actual val datastoreModule = module {
     single<DeviceDataStore> {
         DeviceDataStore(
             DevicePreferenceDataSource.createDataStore {
-                androidContext().filesDir.resolve(createDataStoreFilename(DatastoreUtil.DEVICE)).absolutePath
+                androidContext().filesDir.resolve(createDataStoreFilename(DevicePreferenceDataSource.NAME)).absolutePath
             }
         )
     }

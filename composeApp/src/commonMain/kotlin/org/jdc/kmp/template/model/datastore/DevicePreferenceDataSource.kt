@@ -64,6 +64,7 @@ class DevicePreferenceDataSource(
     }
 
     companion object {
+        const val NAME = "device"
         private const val VERSION = 3
 
         fun createDataStore(producePath: () -> String): DataStore<Preferences> {

@@ -28,7 +28,7 @@ actual val datastoreModule = module {
     single<UserDataStore> {
         UserDataStore(
             UserPreferenceDataSource.createDataStore {
-                createDataStoreFilename(DatastoreUtil.USER)
+                createDataStoreFilename(UserPreferenceDataSource.NAME)
             }
         )
     }
@@ -36,7 +36,7 @@ actual val datastoreModule = module {
     single<DeviceDataStore> {
         DeviceDataStore(
             DevicePreferenceDataSource.createDataStore {
-                createDataStoreFilename(DatastoreUtil.DEVICE)
+                createDataStoreFilename(DevicePreferenceDataSource.NAME)
             }
         )
     }
