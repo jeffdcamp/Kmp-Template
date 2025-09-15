@@ -18,7 +18,7 @@ open class DefaultStringResources : StringResources {
     override val individualType = "Individual Type"
     override val invalidEmail = "Invalid Email"
     override val invalidBirthDate = "Invalid Birthdate"
-    override val lastName = "First Name"
+    override val lastName = "Last Name"
     override val phone = "Phone"
     override val required = "Required"
     override val save = "Save"

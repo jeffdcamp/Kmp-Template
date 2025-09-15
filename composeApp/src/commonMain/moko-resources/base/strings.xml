@@ -9,6 +9,7 @@
     <string name="edit_individual">Edit Individual</string>
     <string name="email">Email</string>
     <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
     <string name="delete">Delete</string>
     <string name="delete_individual_confirm">Are you sure you want to delete this individual?</string>
     <string name="individual">Individual</string>
