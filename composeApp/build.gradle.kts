@@ -63,17 +63,9 @@ kotlin {
             implementation(libs.kotlin.coroutines)
         }
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.materialIconsExtended)
-//            implementation(compose.preview)
-            implementation(compose.components.uiToolingPreview)
-
             // Code
             implementation(libs.kotlin.serialization.json)
+            implementation(libs.kotlin.atomicfu)
             implementation(libs.kotlin.coroutines)
             implementation(libs.kotlin.datetime)
             implementation(libs.okio)
@@ -90,12 +82,16 @@ kotlin {
 //            api(libs.koin.annotations)
 
             // UI
-            implementation(libs.compose.material3.adaptive)
-            implementation(libs.compose.material3.adaptive.navigation)
-//            implementation(libs.jetbrains.lifecycle.viewmodel)
+            implementation(libs.jetbrains.lifecycle.viewmodel)
+            implementation(libs.jetbrains.lifecycle.viewmodel.navigation3)
             implementation(libs.jetbrains.navigation.compose)
-
-//            implementation(libs.compose.material.iconsext)
+            implementation(libs.jetbrains.compose.runtime)
+            implementation(libs.jetbrains.compose.foundation)
+            implementation(libs.jetbrains.compose.material.iconsext)
+            implementation(libs.jetbrains.compose.material3)
+            implementation(libs.jetbrains.compose.material3.adaptive.navigation)
+            implementation(libs.jetbrains.compose.ui.tooling.preview)
+            implementation(libs.jetbrains.navigation3.ui)
 
             // Resources
 //            implementation(libs.moko.resources)
@@ -131,16 +127,7 @@ kotlin {
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
-//            implementation(libs.kotlin.coroutines.swing)
-
-//            implementation(libs.compose.material3.adaptive)
-//            implementation(libs.compose.material3.adaptive.navigation)
-
-            // Work-around for issue that somehow kotlinx-coroutines-android is being included with desktop dependencies (room-ktx?)
-            // https://youtrack.jetbrains.com/issue/CMP-767/Module-with-the-Main-dispatcher-had-failed-to-initialize
-//            configurations.commonMainApi {
-//                exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-android")
-//            }
+            implementation(libs.kotlin.coroutines.swing)
         }
     }
 }
