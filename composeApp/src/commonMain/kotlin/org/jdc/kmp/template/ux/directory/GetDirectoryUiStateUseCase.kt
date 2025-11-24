@@ -1,7 +1,7 @@
 package org.jdc.kmp.template.ux.directory
 
 import kotlinx.coroutines.CoroutineScope
-import org.dbtools.kmp.commons.compose.navigation.NavigationAction
+import org.dbtools.kmp.commons.compose.navigation3.Navigation3Action
 import org.dbtools.kmp.commons.ext.stateInDefault
 import org.jdc.kmp.template.model.repository.IndividualRepository
 import org.jdc.kmp.template.ux.individual.IndividualRoute
@@ -12,12 +12,12 @@ class GetDirectoryUiStateUseCase(
 ) {
     operator fun invoke(
         coroutineScope: CoroutineScope,
-        navigate: (NavigationAction) -> Unit,
+        navigate: (Navigation3Action) -> Unit,
     ): DirectoryUiState {
         return DirectoryUiState(
             directoryListFlow = individualRepository.getDirectoryListFlow().stateInDefault(coroutineScope, emptyList()),
-            onNewClick = { navigate(NavigationAction.Navigate(IndividualEditRoute())) },
-            onIndividualClick = { individualId -> navigate(NavigationAction.Navigate(IndividualRoute(individualId))) },
+            onNewClick = { navigate(Navigation3Action.Navigate(IndividualEditRoute())) },
+            onIndividualClick = { individualId -> navigate(Navigation3Action.Navigate(IndividualRoute(individualId))) },
 //            onSettingsClick = { navigate(NavigationAction.Navigate(SettingsRoute)) }
             onSettingsClick = {  }
         )

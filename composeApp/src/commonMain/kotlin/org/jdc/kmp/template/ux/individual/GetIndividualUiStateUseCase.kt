@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 import org.dbtools.kmp.commons.compose.dialog.DialogUiState
 import org.dbtools.kmp.commons.compose.dialog.dismissDialog
 import org.dbtools.kmp.commons.compose.dialog.showMessageDialog
-import org.dbtools.kmp.commons.compose.navigation.NavigationAction
+import org.dbtools.kmp.commons.compose.navigation3.Navigation3Action
 import org.dbtools.kmp.commons.ext.stateInDefault
 import org.jdc.kmp.template.analytics.Analytics
 import org.jdc.kmp.template.domain.inline.IndividualId
@@ -28,7 +28,7 @@ class GetIndividualUiStateUseCase(
     operator fun invoke(
         individualId: IndividualId,
         coroutineScope: CoroutineScope,
-        navigate: (NavigationAction) -> Unit,
+        navigate: (Navigation3Action) -> Unit,
     ): IndividualUiState {
         return IndividualUiState(
             dialogUiStateFlow = dialogUiStateFlow,
@@ -41,23 +41,24 @@ class GetIndividualUiStateUseCase(
         )
     }
 
-    private fun onDeleteClick(individualId: IndividualId, coroutineScope: CoroutineScope, navigate: (NavigationAction) -> Unit) {
+    private fun onDeleteClick(individualId: IndividualId, coroutineScope: CoroutineScope, navigate: (Navigation3Action) -> Unit) {
         showMessageDialog(
             dialogUiStateFlow,
             text = { Resources.strings.deleteIndividualConfirm },
+            confirmButtonText = { Resources.strings.delete },
             onConfirm = { deleteIndividual(individualId, coroutineScope, navigate) },
             onDismiss = { dismissDialog(dialogUiStateFlow) }
         )
     }
 
-    private fun deleteIndividual(individualId: IndividualId, coroutineScope: CoroutineScope, navigate: (NavigationAction) -> Unit) = coroutineScope.launch {
+    private fun deleteIndividual(individualId: IndividualId, coroutineScope: CoroutineScope, navigate: (Navigation3Action) -> Unit) = coroutineScope.launch {
         analytics.logEvent(Analytics.EVENT_DELETE_INDIVIDUAL)
         individualRepository.deleteIndividual(individualId)
-        navigate(NavigationAction.Pop())
+        navigate(Navigation3Action.Pop())
     }
 
-    private fun editIndividual(individualId: IndividualId, navigate: (NavigationAction) -> Unit) {
+    private fun editIndividual(individualId: IndividualId, navigate: (Navigation3Action) -> Unit) {
         analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
-        navigate(NavigationAction.Navigate(IndividualEditRoute(individualId)))
+        navigate(Navigation3Action.Navigate(IndividualEditRoute(individualId)))
     }
 }

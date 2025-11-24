@@ -9,42 +9,40 @@ kotlinxDateTime = "0.7.1"
 android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
-androidxActivityCompose = "1.11.0"
+androidxActivityCompose = "1.12.0"
 androidxComposeMaterial3Adaptive = "1.2.0"
 androidxComposeMaterial3AdaptiveNavigation = "1.4.0"
-androidxLifecycle = "2.9.4"
+androidxLifecycle = "2.10.0"
 
 assertk = "0.28.1"
-dataStore = "1.1.7"
+dataStore = "1.2.0"
 dbtoolsKmpCommons = "1.3.0"
-dbtoolsKmpCommonsCompose = "2.0.0"
-dbtoolsKmpRoom = "9.3.4"
+dbtoolsKmpCommonsCompose = "2.1.0"
+dbtoolsKmpRoom = "9.3.5"
 desugar = "2.1.5"
 detekt = "1.23.8"
 downloadPlugin = "5.6.0"
 firebaseGitLive = "2.4.0"
 
-jetbrainsCompose = "1.10.0-beta01" # https://github.com/JetBrains/compose-jb
+jetbrainsCompose = "1.10.0-beta02" # https://github.com/JetBrains/compose-jb
 jetbrainsComposeIcons = "1.7.3"
 jetbrainsLifecycle = "2.9.6"
-jetbrainsLifecycleViewModelNavigation3 = "2.10.0-alpha04"
+jetbrainsLifecycleViewModelNavigation3 = "2.10.0-alpha05"
 jetbrainsNavigation = "2.9.1"
-jetbrainsNavigationSuite = "1.10.0-alpha04"
-jetbrainsNavigation3 = "1.0.0-alpha04"
+jetbrainsNavigationSuite = "1.10.0-alpha05"
+jetbrainsNavigation3 = "1.0.0-alpha05"
 jetbrainsMaterial3 = "1.9.0"
 
 kermit = "2.0.8"
 koin = "4.1.1"
-koinCompose = "4.1.1"
-koinComposeViewModel = "4.1.1"
 ktor = "3.3.2"
 kover = "0.9.3"
-ksp = "2.3.2"
+ksp = "2.3.3"
 mockK = "1.14.6"
-mokoResources = "0.25.1"
-okio = "3.16.3"
-room = "2.8.3"
-sqlite = "2.6.1"
+mokoResources = "0.25.2"
+okio = "3.16.4"
+room = "2.8.4"
+sqlite = "2.6.2"
 versionsPlugin = "0.53.0"
 
 [plugins]
@@ -96,8 +94,8 @@ jetbrains-navigation3-ui = { group = "org.jetbrains.androidx.navigation3", name 
 kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
-koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koinCompose" }
-koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koinComposeViewModel" }
+koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin" }
+koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 
 kotlin-atomicfu = { group = "org.jetbrains.kotlinx", name = "atomicfu", version.ref = "kotlinxAtomicfu" }

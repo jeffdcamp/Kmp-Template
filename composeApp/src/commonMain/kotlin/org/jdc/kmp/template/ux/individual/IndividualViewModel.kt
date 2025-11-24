@@ -1,16 +1,13 @@
 package org.jdc.kmp.template.ux.individual
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
-import org.dbtools.kmp.commons.compose.navigation.ViewModelNavigation
-import org.dbtools.kmp.commons.compose.navigation.ViewModelNavigationImpl
+import org.dbtools.kmp.commons.compose.navigation3.ViewModelNavigation3
+import org.dbtools.kmp.commons.compose.navigation3.ViewModelNavigation3Impl
 
 class IndividualViewModel(
     getIndividualUiStateUseCase: GetIndividualUiStateUseCase,
-    savedStateHandle: SavedStateHandle
-) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
-    private val individualRoute = savedStateHandle.toRoute<IndividualRoute>(IndividualRoute.typeMap())
+    individualRoute: IndividualRoute
+) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
     val uiState: IndividualUiState = getIndividualUiStateUseCase(individualRoute.individualId, viewModelScope) { navigate(it) }
 }

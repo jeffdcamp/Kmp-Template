@@ -1,7 +1,7 @@
 package org.jdc.kmp.template.ux.directory
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import org.dbtools.kmp.commons.compose.navigation.NavigationRoute
 
 @Serializable
-object DirectoryRoute: NavigationRoute
+object DirectoryRoute: NavKey

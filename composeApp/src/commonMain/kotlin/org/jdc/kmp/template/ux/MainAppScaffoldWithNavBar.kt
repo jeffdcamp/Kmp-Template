@@ -35,6 +35,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.navigation3.runtime.NavKey
+import org.jdc.kmp.template.ux.directory.DirectoryRoute
 
 @Composable
 fun MainAppScaffoldWithNavBar(
@@ -203,14 +205,9 @@ fun getNavigationSuiteType(windowSize: DpSize): NavigationSuiteType {
 enum class NavBarItem(
     val unselectedImageVector: ImageVector,
     val selectedImageVector: ImageVector,
+    val route: NavKey,
     val text: String
 ) {
-    PEOPLE(Icons.Outlined.People, Icons.Filled.People, "People"),
-    ABOUT(Icons.Outlined.Info, Icons.Filled.Info, "About");
-
-//    companion object {
-//        fun getNavBarItemRouteMap(): Map<NavBarItem, NavRoute> {
-//            return entries.associateWith { item -> item.route }
-//        }
-//    }
+    PEOPLE(Icons.Outlined.People, Icons.Filled.People, DirectoryRoute,"People"),
+    ABOUT(Icons.Outlined.Info, Icons.Filled.Info,  DirectoryRoute,"About");
 }

@@ -11,7 +11,6 @@ import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import org.dbtools.kmp.commons.compose.appbar.AppBarMenu
 import org.dbtools.kmp.commons.compose.appbar.AppBarMenuItem
 import org.dbtools.kmp.commons.compose.dialog.HandleDialogUiState
@@ -20,17 +19,17 @@ import org.dbtools.kmp.commons.compose.form.DropdownMenuBoxField
 import org.dbtools.kmp.commons.compose.form.FlowTextField
 import org.dbtools.kmp.commons.compose.form.SwitchField
 import org.dbtools.kmp.commons.compose.form.TimeClickableTextField
-import org.dbtools.kmp.commons.compose.navigation.HandleNavigation
+import org.dbtools.kmp.commons.compose.navigation3.HandleNavigation3
+import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigator
 import org.dbtools.kmp.commons.compose.util.formKeyEventHandler
 import org.jdc.kmp.template.domain.type.IndividualType
 import org.jdc.kmp.template.resources.Resources
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
-import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun IndividualEditScreen(
-    navController: NavController,
-    viewModel: IndividualEditViewModel = koinViewModel<IndividualEditViewModel>()
+    navigator: Navigation3Navigator,
+    viewModel: IndividualEditViewModel
 ) {
     val uiState = viewModel.uiState
 
@@ -41,7 +40,7 @@ fun IndividualEditScreen(
     MainAppScaffoldWithNavBar(
         title = Resources.strings.editIndividual,
         actions = { AppBarMenu(appBarMenuItems) },
-        onNavigationClick = { navController.popBackStack() },
+        onNavigationClick = { navigator.pop() },
         hideNavigation = true
     ) {
         IndividualEditContent(viewModel.uiState)
@@ -49,7 +48,7 @@ fun IndividualEditScreen(
 
     HandleDialogUiState(uiState.dialogUiStateFlow)
 
-    HandleNavigation(viewModel, navController)
+    HandleNavigation3(viewModel, navigator)
 }
 
 @Composable

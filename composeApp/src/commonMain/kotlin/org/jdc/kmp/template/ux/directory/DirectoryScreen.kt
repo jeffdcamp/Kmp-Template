@@ -15,18 +15,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import org.dbtools.kmp.commons.compose.appbar.AppBarMenu
 import org.dbtools.kmp.commons.compose.appbar.AppBarMenuItem
-import org.dbtools.kmp.commons.compose.navigation.HandleNavigation
+import org.dbtools.kmp.commons.compose.navigation3.HandleNavigation3
+import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigator
 import org.jdc.kmp.template.resources.Resources
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
-import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun DirectoryScreen(
-    navController: NavHostController,
-    viewModel: DirectoryViewModel = koinViewModel<DirectoryViewModel>()
+    navigator: Navigation3Navigator,
+    viewModel: DirectoryViewModel
 ) {
     val uiState = viewModel.uiState
 
@@ -42,7 +41,7 @@ fun DirectoryScreen(
         title = "Directory",
         navigationIconVisible = false,
         actions = { AppBarMenu(appBarMenuItems) },
-        onNavigationClick = { navController.popBackStack() },
+        onNavigationClick = { navigator.pop() },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { uiState.onNewClick() },
@@ -55,7 +54,7 @@ fun DirectoryScreen(
         DirectoryContent(uiState)
     }
 
-    HandleNavigation(viewModel, navController)
+    HandleNavigation3(viewModel, navigator)
 }
 
 @Composable

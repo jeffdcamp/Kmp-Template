@@ -13,12 +13,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import org.dbtools.kmp.commons.compose.appbar.AppBarMenu
 import org.dbtools.kmp.commons.compose.appbar.AppBarMenuItem
 import org.dbtools.kmp.commons.compose.dialog.HandleDialogUiState
 import org.dbtools.kmp.commons.compose.form.TextWithTitle
-import org.dbtools.kmp.commons.compose.navigation.HandleNavigation
+import org.dbtools.kmp.commons.compose.navigation3.HandleNavigation3
+import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigator
 import org.jdc.kmp.template.domain.Individual
 import org.jdc.kmp.template.resources.Resources
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
@@ -26,7 +26,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun IndividualScreen(
-    navController: NavController,
+    navigator: Navigation3Navigator,
     viewModel: IndividualViewModel = koinViewModel<IndividualViewModel>()
 ) {
     val uiState = viewModel.uiState
@@ -39,14 +39,13 @@ fun IndividualScreen(
     MainAppScaffoldWithNavBar(
         title = Resources.strings.individual,
         actions = { AppBarMenu(appBarMenuItems) },
-        onNavigationClick = { navController.popBackStack() },
+        onNavigationClick = { navigator.pop() },
     ) {
         IndividualContent(uiState)
     }
 
     HandleDialogUiState(uiState.dialogUiStateFlow)
-
-    HandleNavigation(viewModel, navController)
+    HandleNavigation3(viewModel, navigator)
 }
 
 @Composable

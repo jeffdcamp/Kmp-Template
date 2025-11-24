@@ -5,7 +5,6 @@ import androidx.compose.material3.SelectableDates
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import kotlin.time.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
@@ -14,7 +13,7 @@ import org.dbtools.kmp.commons.compose.dialog.DatePickerDialogUiState
 import org.dbtools.kmp.commons.compose.dialog.DialogUiState
 import org.dbtools.kmp.commons.compose.dialog.TimePickerDialogUiState
 import org.dbtools.kmp.commons.compose.dialog.dismissDialog
-import org.dbtools.kmp.commons.compose.navigation.NavigationAction
+import org.dbtools.kmp.commons.compose.navigation3.Navigation3Action
 import org.dbtools.kmp.commons.text.EmailUtil
 import org.jdc.kmp.template.analytics.Analytics
 import org.jdc.kmp.template.domain.Individual
@@ -26,6 +25,7 @@ import org.jdc.kmp.template.domain.inline.Phone
 import org.jdc.kmp.template.domain.type.IndividualType
 import org.jdc.kmp.template.model.repository.IndividualRepository
 import org.jdc.kmp.template.resources.Resources
+import kotlin.time.Clock
 
 class GetIndividualEditUiStateUseCase(
     private val individualRepository: IndividualRepository,
@@ -52,7 +52,7 @@ class GetIndividualEditUiStateUseCase(
     operator fun invoke(
         individualId: IndividualId?,
         coroutineScope: CoroutineScope,
-        navigate: (NavigationAction) -> Unit,
+        navigate: (Navigation3Action) -> Unit,
     ): IndividualEditUiState {
         analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
 
@@ -117,7 +117,7 @@ class GetIndividualEditUiStateUseCase(
         availableFlow.value = individual.available
     }
 
-    private fun saveIndividual(coroutineScope: CoroutineScope, navigate: (NavigationAction) -> Unit) = coroutineScope.launch {
+    private fun saveIndividual(coroutineScope: CoroutineScope, navigate: (Navigation3Action) -> Unit) = coroutineScope.launch {
         if (!validateAllFields()) {
             return@launch
         }
@@ -133,7 +133,7 @@ class GetIndividualEditUiStateUseCase(
             available = availableFlow.value,
         ))
 
-        navigate(NavigationAction.Pop())
+        navigate(Navigation3Action.Pop())
     }
 
     private fun valueOrNull(value: String): String? {

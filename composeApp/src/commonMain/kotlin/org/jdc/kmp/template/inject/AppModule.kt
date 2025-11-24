@@ -9,6 +9,7 @@ import org.jdc.kmp.template.model.datastore.UserPreferenceDataSource
 import org.jdc.kmp.template.model.db.main.MainDatabase
 import org.jdc.kmp.template.model.repository.IndividualRepository
 import org.jdc.kmp.template.model.repository.SettingsRepository
+import org.jdc.kmp.template.ux.MainViewModel
 import org.jdc.kmp.template.ux.directory.DirectoryViewModel
 import org.jdc.kmp.template.ux.directory.GetDirectoryUiStateUseCase
 import org.jdc.kmp.template.ux.individual.GetIndividualUiStateUseCase
@@ -37,6 +38,7 @@ val appModule = module {
     factoryOf(::GetIndividualUiStateUseCase)
     factoryOf(::GetIndividualEditUiStateUseCase)
 
+    viewModelOf(::MainViewModel)
     viewModelOf(::DirectoryViewModel)
     viewModelOf(::IndividualViewModel)
     viewModelOf(::IndividualEditViewModel)

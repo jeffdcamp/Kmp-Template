@@ -2,11 +2,11 @@ package org.jdc.kmp.template.ux.directory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import org.dbtools.kmp.commons.compose.navigation.ViewModelNavigation
-import org.dbtools.kmp.commons.compose.navigation.ViewModelNavigationImpl
+import org.dbtools.kmp.commons.compose.navigation3.ViewModelNavigation3
+import org.dbtools.kmp.commons.compose.navigation3.ViewModelNavigation3Impl
 
 class DirectoryViewModel(
     getDirectoryUiStateUseCase: GetDirectoryUiStateUseCase
-) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
+) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
     val uiState: DirectoryUiState = getDirectoryUiStateUseCase(viewModelScope) { navigate(it) }
 }
