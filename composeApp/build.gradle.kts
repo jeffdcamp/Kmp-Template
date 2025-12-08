@@ -119,6 +119,7 @@ kotlin {
 //            implementation(libs.firebase.gitlive.functions)
         }
         commonTest.dependencies {
+            implementation(libs.koin.test)
             implementation(libs.room.testing)
             implementation(libs.kotlin.test)
             implementation(libs.kotlin.coroutines.test)

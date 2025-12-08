@@ -4,7 +4,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
-import org.jdc.kmp.template.model.datastore.DatastoreUtil
 import org.jdc.kmp.template.model.datastore.DatastoreUtil.createDataStoreFilename
 import org.jdc.kmp.template.model.datastore.DeviceDataStore
 import org.jdc.kmp.template.model.datastore.DevicePreferenceDataSource
@@ -27,7 +26,7 @@ actual val databaseModule = module {
 actual val datastoreModule = module {
     single<UserDataStore> {
         UserDataStore(
-            UserPreferenceDataSource.createDataStore {
+            datastore = UserPreferenceDataSource.createDataStore {
                 createDataStoreFilename(UserPreferenceDataSource.NAME)
             }
         )
@@ -35,7 +34,7 @@ actual val datastoreModule = module {
 
     single<DeviceDataStore> {
         DeviceDataStore(
-            DevicePreferenceDataSource.createDataStore {
+            datastore = DevicePreferenceDataSource.createDataStore {
                 createDataStoreFilename(DevicePreferenceDataSource.NAME)
             }
         )

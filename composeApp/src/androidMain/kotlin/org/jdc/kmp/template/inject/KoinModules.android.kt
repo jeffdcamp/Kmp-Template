@@ -26,7 +26,7 @@ actual val databaseModule = module {
 actual val datastoreModule = module {
     single<UserDataStore> {
         UserDataStore(
-            UserPreferenceDataSource.createDataStore {
+            datastore = UserPreferenceDataSource.createDataStore {
                 androidContext().filesDir.resolve(createDataStoreFilename(UserPreferenceDataSource.NAME)).absolutePath
             }
         )
@@ -34,7 +34,7 @@ actual val datastoreModule = module {
 
     single<DeviceDataStore> {
         DeviceDataStore(
-            DevicePreferenceDataSource.createDataStore {
+            datastore = DevicePreferenceDataSource.createDataStore {
                 androidContext().filesDir.resolve(createDataStoreFilename(DevicePreferenceDataSource.NAME)).absolutePath
             }
         )
