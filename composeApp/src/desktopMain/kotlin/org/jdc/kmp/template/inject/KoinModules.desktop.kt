@@ -13,7 +13,7 @@ import org.jdc.kmp.template.model.db.main.MainDatabase
 import org.koin.dsl.module
 import java.io.File
 
-actual val databaseModule = module {
+actual val databaseBuilderModule = module {
     single<RoomDatabase.Builder<MainDatabase>> {
         val dbFile = File(System.getProperty("java.io.tmpdir"), MainDatabase.DATABASE_NAME)
         Logger.i { "DB File: ${dbFile.absolutePath}" }

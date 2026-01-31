@@ -12,7 +12,7 @@ import org.jdc.kmp.template.model.db.main.MainDatabase
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
-actual val databaseModule = module {
+actual val databaseBuilderModule = module {
     single<RoomDatabase.Builder<MainDatabase>> {
         val appContext = androidContext().applicationContext
         val dbFile = appContext.getDatabasePath(MainDatabase.DATABASE_NAME)
