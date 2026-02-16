@@ -4,33 +4,28 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.android.kotlin.multiplatform.library)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
-//    alias(libs.plugins.mokoResources)
-//    alias(libs.plugins.koin)
-
     alias(libs.plugins.versions) // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
     alias(libs.plugins.kover)
     alias(libs.plugins.download)
 }
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
-        }
+    compilerOptions {
+        optIn.add("kotlin.time.ExperimentalTime")
+        optIn.add("kotlin.uuid.ExperimentalUuidApi")
+        optIn.add("kotlinx.coroutines.ExperimentalCoroutinesApi")
     }
 
-    compilerOptions {
-        compilerOptions {
-            optIn.add("kotlin.time.ExperimentalTime")
-            optIn.add("kotlin.uuid.ExperimentalUuidApi")
-            optIn.add("kotlinx.coroutines.ExperimentalCoroutinesApi")
-        }
+    androidLibrary {
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        namespace = "org.jdc.kmp.shared.template"
     }
 
     jvm("desktop") {
@@ -56,11 +51,12 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
-//            implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.androidx.activity.compose)
+            // Firebase
+            implementation(libs.firebase.google.analytics)
+            implementation(libs.firebase.google.config)
 
-            implementation(libs.koin.android)
-            implementation(libs.kotlin.coroutines)
+            implementation(libs.firebase.gitlive.analytics)
+            implementation(libs.firebase.gitlive.config)
         }
         commonMain.dependencies {
             // Code
@@ -78,8 +74,6 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
-//            implementation(libs.koin.compose.viewmodel.navigation)
-//            api(libs.koin.annotations)
 
             // UI
             implementation(libs.jetbrains.lifecycle.viewmodel)
@@ -97,26 +91,14 @@ kotlin {
 //            implementation(libs.moko.resources)
 //            implementation(libs.moko.resources.compose)
 
-            // Navigation
-//            implementation(libs.androidx.navigation3.runtime)
-//            implementation(libs.androidx.navigation3.ui)
-//            implementation(libs.androidx.lifecycle.viewmodel.navigation3)
-
             // Database
             implementation(libs.room.runtime)
-//            implementation(libs.room.ktx) // doesn't seem to be needed... and causes issues with Desktop (adds kotlinx-coroutines-android)
             implementation(libs.sqlite.bundled)
             implementation(libs.datastorePrefs)
-//            ksp(libs.androidx.room.compiler)
-//            implementation(libs.dbtools.room)
 
             // firebase
-//            implementation(libs.firebase.gitlive.auth)
             implementation(libs.firebase.gitlive.analytics)
-//            implementation(libs.firebase.gitlive.config)
-//            implementation(libs.firebase.gitlive.crashlytics)
-//            implementation(libs.firebase.gitlive.firestore)
-//            implementation(libs.firebase.gitlive.functions)
+            implementation(libs.firebase.gitlive.config)
         }
         commonTest.dependencies {
             implementation(libs.koin.test)
@@ -133,53 +115,13 @@ kotlin {
     }
 }
 
-android {
-    namespace = "org.jdc.kmp.template"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
-
-    defaultConfig {
-        applicationId = "org.jdc.kmptemplate"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
-    }
-//    androidResources {
-//        generateLocaleConfig = true
-//    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-        isCoreLibraryDesugaringEnabled = true
-    }
-    dependencies {
-        coreLibraryDesugaring(libs.android.desugar)
-        debugImplementation(compose.uiTooling)
-//        debugImplementation(libs.compose.ui.tooling)
-    }
-}
-
 compose.desktop {
     application {
         mainClass = "MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "org.jdc.kmptemplate"
+            packageName = "org.jdc.kmp.template"
             packageVersion = "1.0.0"
         }
     }
@@ -197,29 +139,3 @@ dependencies {
 room {
     schemaDirectory("$projectDir/schemas")
 }
-
-// ===== String and other Resources =====
-// ./gradlew generateMRcommonMain
-//multiplatformResources {
-//    resourcesPackage.set("org.jdc.kmp.template") // required
-//    resourcesClassName.set("Resources2") // optional, default MR
-////    resourcesVisibility.set(MRVisibility.Public) // optional, default Public
-////    iosBaseLocalizationRegion.set("en") // optional, default "en"
-////    iosMinimalDeploymentTarget.set("11.0") // optional, default "9.0"
-//}
-
-// ./gradlew koverHtmlReport
-// ./gradlew koverVerify
-//kover {
-//    reports {
-//        verify {
-//            rule {
-//                minBound(0)
-//            }
-//        }
-//    }
-//
-//    reports {
-//
-//    }
-//}

@@ -18,13 +18,14 @@ class DefaultAnalytics : Analytics {
 
     init {
         updateFirebaseUserProperties()
+        platformAnalyticsStrategy()?.let { AppAnalytics.register(it) }
 //        AppAnalytics.register(FirebaseStrategy(firebaseAnalytics))
 
         // Set log levels
         AppAnalytics.setLogLevel(if (isDebugMode()) AppAnalytics.LogLevel.VERBOSE else AppAnalytics.LogLevel.UPLOAD)
 
         // Test Analytics in Logcat
-        if (isDebugMode()) {
+        if (isDebugMode() && AppAnalytics.findRegistered<TestStrategy>().isEmpty()) {
             val testStrategy = TestStrategy { Logger.w { "^^^ $it" } }
             AppAnalytics.register(testStrategy)
 

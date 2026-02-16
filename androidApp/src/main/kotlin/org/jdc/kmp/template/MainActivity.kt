@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.text.intl.Locale
 import co.touchlab.kermit.Logger
+import java.util.Locale
 
 
 class MainActivity : ComponentActivity() {
@@ -18,21 +18,21 @@ class MainActivity : ComponentActivity() {
 
             Logger.e { "===== Language (ISO 639) =====" }
             Logger.e { "currentConfiguration: ${currentConfiguration.locales.get(0)}" }
-            Logger.e { "Locale.current.language: ${Locale.current.language}" }
-            Logger.e { "java.util.Locale.getDefault(): ${java.util.Locale.getDefault()}" }
-            Logger.e { "java.util.Locale.getDefault().language: ${java.util.Locale.getDefault().language}" }
-            Logger.e { "java.util.Locale.getDefault().isO3Language: ${java.util.Locale.getDefault().isO3Language}" }
+            Logger.e { "Locale.getDefault().language: ${Locale.getDefault().language}" }
+            Logger.e { "java.util.Locale.getDefault(): ${Locale.getDefault()}" }
+            Logger.e { "java.util.Locale.getDefault().language: ${Locale.getDefault().language}" }
+            Logger.e { "java.util.Locale.getDefault().isO3Language: ${Locale.getDefault().isO3Language}" }
             Logger.e { "===== BCP 47 =====" }
             Logger.e {
                 "currentConfiguration.toLanguageTag(): ${
                     currentConfiguration.locales.get(0).toLanguageTag()
                 }"
             }
-            Logger.e { "Locale.current.language: ${Locale.current.toLanguageTag()}" }
-            Logger.e { "java.util.Locale.getDefault(): ${java.util.Locale.getDefault()}" }
+            Logger.e { "Locale.getDefault().toLanguageTag(): ${Locale.getDefault().toLanguageTag()}" }
+            Logger.e { "java.util.Locale.getDefault(): ${Locale.getDefault()}" }
             Logger.e {
                 "java.util.Locale.getDefault().toLanguageTag(): ${
-                    java.util.Locale.getDefault().toLanguageTag()
+                    Locale.getDefault().toLanguageTag()
                 }"
             }
 

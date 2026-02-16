@@ -1,6 +1,6 @@
-
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import de.undercouch.gradle.tasks.download.Download
+
 
 plugins {
     // this is necessary to avoid the plugins to be loaded multiple times
@@ -10,15 +10,16 @@ plugins {
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.android.kotlin.multiplatform.library) apply false
     alias(libs.plugins.kover) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.room) apply false
     alias(libs.plugins.mokoResources) apply false
-//    alias(libs.plugins.koin) apply false
 
     alias(libs.plugins.download)
     alias(libs.plugins.detekt)
     alias(libs.plugins.versions)
+    alias(libs.plugins.kotlin.android) apply false
 }
 
 // ===== Gradle Dependency Check =====
