@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.versions) // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
     alias(libs.plugins.kover)
     alias(libs.plugins.download)
+    alias(libs.plugins.mokoResources)
 }
 
 kotlin {
@@ -88,8 +89,8 @@ kotlin {
             implementation(libs.jetbrains.navigation3.ui)
 
             // Resources
-//            implementation(libs.moko.resources)
-//            implementation(libs.moko.resources.compose)
+            implementation(libs.moko.resources)
+            implementation(libs.moko.resources.compose)
 
             // Database
             implementation(libs.room.runtime)
@@ -139,3 +140,14 @@ dependencies {
 room {
     schemaDirectory("$projectDir/schemas")
 }
+
+// ===== String and other Resources =====
+// ./gradlew generateMRcommonMain
+multiplatformResources {
+    resourcesPackage.set("org.jdc.kmp.template") // required
+    resourcesClassName.set("SharedResources") // optional, default MR
+//    resourcesVisibility.set(MRVisibility.Public) // optional, default Public
+    iosBaseLocalizationRegion.set("en") // optional, default "en"
+//    iosMinimalDeploymentTarget.set("11.0") // optional, default "9.0"
+}
+

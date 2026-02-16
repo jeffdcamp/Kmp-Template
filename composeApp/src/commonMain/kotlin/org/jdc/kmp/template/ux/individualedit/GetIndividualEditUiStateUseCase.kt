@@ -15,6 +15,7 @@ import org.dbtools.kmp.commons.compose.dialog.TimePickerDialogUiState
 import org.dbtools.kmp.commons.compose.dialog.dismissDialog
 import org.dbtools.kmp.commons.compose.navigation3.Navigation3Action
 import org.dbtools.kmp.commons.text.EmailUtil
+import org.jdc.kmp.template.SharedResources
 import org.jdc.kmp.template.analytics.Analytics
 import org.jdc.kmp.template.domain.Individual
 import org.jdc.kmp.template.domain.inline.Email
@@ -24,7 +25,6 @@ import org.jdc.kmp.template.domain.inline.LastName
 import org.jdc.kmp.template.domain.inline.Phone
 import org.jdc.kmp.template.domain.type.IndividualType
 import org.jdc.kmp.template.model.repository.IndividualRepository
-import org.jdc.kmp.template.resources.Resources
 import kotlin.time.Clock
 
 class GetIndividualEditUiStateUseCase(
@@ -153,23 +153,23 @@ class GetIndividualEditUiStateUseCase(
         var allFieldsValid = true
 
         if (firstNameFlow.value.isBlank()) {
-            firstNameErrorFlow.value = Resources.getStringResources().required
+            firstNameErrorFlow.value = SharedResources.strings.required.localized()
             allFieldsValid = false
         }
 
         if (emailFlow.value.isNotBlank() && !EmailUtil.isValidEmailAddress(emailFlow.value)) {
-            emailErrorFlow.value = Resources.getStringResources().invalidEmail
+            emailErrorFlow.value = SharedResources.strings.invalid_email.localized()
             allFieldsValid = false
         }
 
         val birthDate = birthDateFlow.value
         if (birthDate != null && birthDate >= Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date) {
-            birthDateErrorFlow.value = Resources.getStringResources().invalidBirthDate
+            birthDateErrorFlow.value = SharedResources.strings.invalid_birth_date.localized()
             return false
         }
 
         if (individualTypeFlow.value == IndividualType.CHILD && lastNameFlow.value.isEmpty()) {
-            individualTypeErrorFlow.value = Resources.getStringResources().required
+            individualTypeErrorFlow.value = SharedResources.strings.required.localized()
             return false
         }
 

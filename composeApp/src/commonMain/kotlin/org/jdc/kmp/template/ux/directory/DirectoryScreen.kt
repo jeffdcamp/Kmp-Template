@@ -15,11 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import dev.icerock.moko.resources.compose.stringResource
 import org.dbtools.kmp.commons.compose.appbar.AppBarMenu
 import org.dbtools.kmp.commons.compose.appbar.AppBarMenuItem
 import org.dbtools.kmp.commons.compose.navigation3.HandleNavigation3
 import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigator
-import org.jdc.kmp.template.resources.Resources
+import org.jdc.kmp.template.SharedResources
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
@@ -31,14 +32,14 @@ fun DirectoryScreen(
 
     val appBarMenuItems = listOf(
         // icons
-        AppBarMenuItem.Icon(Icons.Outlined.Search, { Resources.strings.search }) {},
+        AppBarMenuItem.Icon(Icons.Outlined.Search, { stringResource(SharedResources.strings.search) }) {},
 
         // overflow
-        AppBarMenuItem.OverflowMenuItem({ Resources.strings.settings }) { uiState.onSettingsClick() }
+        AppBarMenuItem.OverflowMenuItem({ stringResource(SharedResources.strings.settings) }) { uiState.onSettingsClick() }
     )
 
     MainAppScaffoldWithNavBar(
-        title = "Directory",
+        title = stringResource(SharedResources.strings.directory),
         navigationIconVisible = false,
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navigator.pop() },
@@ -46,7 +47,7 @@ fun DirectoryScreen(
             FloatingActionButton(
                 onClick = { uiState.onNewClick() },
             ) {
-                Icon(Icons.Filled.Add, contentDescription = Resources.strings.add)
+                Icon(Icons.Filled.Add, contentDescription = stringResource(SharedResources.strings.add))
             }
         }
     ) {

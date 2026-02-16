@@ -1,5 +1,6 @@
 package org.jdc.kmp.template.ux.individual
 
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -8,10 +9,10 @@ import org.dbtools.kmp.commons.compose.dialog.dismissDialog
 import org.dbtools.kmp.commons.compose.dialog.showMessageDialog
 import org.dbtools.kmp.commons.compose.navigation3.Navigation3Action
 import org.dbtools.kmp.commons.ext.stateInDefault
+import org.jdc.kmp.template.SharedResources
 import org.jdc.kmp.template.analytics.Analytics
 import org.jdc.kmp.template.domain.inline.IndividualId
 import org.jdc.kmp.template.model.repository.IndividualRepository
-import org.jdc.kmp.template.resources.Resources
 import org.jdc.kmp.template.ux.individualedit.IndividualEditRoute
 
 
@@ -44,9 +45,10 @@ class GetIndividualUiStateUseCase(
     private fun onDeleteClick(individualId: IndividualId, coroutineScope: CoroutineScope, navigate: (Navigation3Action) -> Unit) {
         showMessageDialog(
             dialogUiStateFlow,
-            text = { Resources.strings.deleteIndividualConfirm },
-            confirmButtonText = { Resources.strings.delete },
+            text = { stringResource(SharedResources.strings.delete_individual_confirm) },
+            confirmButtonText = { stringResource(SharedResources.strings.delete) },
             onConfirm = { deleteIndividual(individualId, coroutineScope, navigate) },
+            dismissButtonText = { stringResource(SharedResources.strings.cancel) },
             onDismiss = { dismissDialog(dialogUiStateFlow) }
         )
     }
