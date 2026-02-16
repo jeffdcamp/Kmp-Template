@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalFocusManager
@@ -32,10 +34,10 @@ fun IndividualEditScreen(
     navigator: Navigation3Navigator,
     viewModel: IndividualEditViewModel
 ) {
-    val uiState = viewModel.uiState
+    val uiState by viewModel.uiStateFlow.collectAsState()
 
     val appBarMenuItems = listOf(
-        AppBarMenuItem.Text({ stringResource(SharedResources.strings.save) }) { uiState.onSaveIndividualClick() },
+        AppBarMenuItem.Text({ stringResource(SharedResources.strings.save) }) { viewModel.onSaveClick() },
     )
 
     MainAppScaffoldWithNavBar(
@@ -44,18 +46,46 @@ fun IndividualEditScreen(
         onNavigationClick = { navigator.pop() },
         hideNavigation = true
     ) {
-        IndividualEditContent(viewModel.uiState)
+        when (uiState) {
+            IndividualEditUiState.Loading -> {}
+            is IndividualEditUiState.Ready -> {
+                IndividualEditContent(
+                    uiState = uiState,
+                    onFirstNameChange = viewModel::onFirstNameChange,
+                    onLastNameChange = viewModel::onLastNameChange,
+                    onPhoneChange = viewModel::onPhoneChange,
+                    onEmailChange = viewModel::onEmailChange,
+                    onBirthDateClick = viewModel::onBirthDateClick,
+                    onAlarmTimeClick = viewModel::onAlarmTimeClick,
+                    onIndividualTypeChange = viewModel::onIndividualTypeChange,
+                    onAvailableChange = viewModel::onAvailableChange
+                )
+            }
+        }
     }
 
-    HandleDialogUiState(uiState.dialogUiStateFlow)
+    HandleDialogUiState(viewModel.dialogUiStateFlow)
 
     HandleNavigation3(viewModel, navigator)
 }
 
 @Composable
 fun IndividualEditContent(
-    uiState: IndividualEditUiState
+    uiState: IndividualEditUiState,
+    onFirstNameChange: (String) -> Unit,
+    onLastNameChange: (String) -> Unit,
+    onPhoneChange: (String) -> Unit,
+    onEmailChange: (String) -> Unit,
+    onBirthDateClick: () -> Unit,
+    onAlarmTimeClick: () -> Unit,
+    onIndividualTypeChange: (IndividualType) -> Unit,
+    onAvailableChange: (Boolean) -> Unit
 ) {
+    if (uiState !is IndividualEditUiState.Ready) {
+        return
+    }
+    val formFields: IndividualEditFormFields = uiState.formFields
+
     Column(
         Modifier
             .verticalScroll(rememberScrollState())
@@ -67,42 +97,42 @@ fun IndividualEditContent(
             .fillMaxWidth()
             .padding(bottom = 4.dp)
 
-        FlowTextField(stringResource(SharedResources.strings.first_name), uiState.firstNameFlow, uiState.firstNameOnChange, fieldModifier.testTag(IndividualEditScreenFields.FIRST_NAME.name),
-            uiState.firstNameErrorFlow)
-        FlowTextField(stringResource(SharedResources.strings.last_name), uiState.lastNameFlow, uiState.lastNameOnChange, fieldModifier.testTag(IndividualEditScreenFields.LAST_NAME.name))
-        FlowTextField(stringResource(SharedResources.strings.phone), uiState.phoneFlow, uiState.phoneOnChange, fieldModifier.testTag(IndividualEditScreenFields.PHONE.name))
-        FlowTextField(stringResource(SharedResources.strings.email), uiState.emailFlow, uiState.emailOnChange, fieldModifier.testTag(IndividualEditScreenFields.EMAIL.name), uiState.emailErrorFlow)
+        FlowTextField(stringResource(SharedResources.strings.first_name), formFields.firstNameFlow, onFirstNameChange, fieldModifier.testTag(IndividualEditScreenFields.FIRST_NAME.name),
+            formFields.firstNameErrorFlow)
+        FlowTextField(stringResource(SharedResources.strings.last_name), formFields.lastNameFlow, onLastNameChange, fieldModifier.testTag(IndividualEditScreenFields.LAST_NAME.name))
+        FlowTextField(stringResource(SharedResources.strings.phone), formFields.phoneNumberFlow, onPhoneChange, fieldModifier.testTag(IndividualEditScreenFields.PHONE.name))
+        FlowTextField(stringResource(SharedResources.strings.email), formFields.emailFlow, onEmailChange, fieldModifier.testTag(IndividualEditScreenFields.EMAIL.name), formFields.emailErrorFlow)
 
         DateClickableTextField(
             label = stringResource(SharedResources.strings.birth_date),
-            localDateFlow = uiState.birthDateFlow,
+            localDateFlow = formFields.birthDateFlow,
             localDateToText = { it.toString() },
-            onClick = uiState.birthDateClick,
+            onClick = onBirthDateClick,
             modifier = fieldModifier.testTag(IndividualEditScreenFields.BIRTH_DATE.name),
-            errorTextFlow = uiState.birthDateErrorFlow
+            errorTextFlow = formFields.birthDateErrorFlow
         )
 
         TimeClickableTextField(
             label = stringResource(SharedResources.strings.alarm_time),
-            localTimeFlow = uiState.alarmTimeFlow,
+            localTimeFlow = formFields.alarmTimeFlow,
             localTimeToString = { it.toString() },
-            onClick = uiState.alarmTimeClick,
+            onClick = onAlarmTimeClick,
             modifier = fieldModifier.testTag(IndividualEditScreenFields.ALARM_TIME.name)
         )
 
         DropdownMenuBoxField(
             label = stringResource(SharedResources.strings.individual_type),
             options = IndividualType.entries,
-            selectedOptionFlow = uiState.individualTypeFlow,
-            onOptionSelected = { uiState.individualTypeChange(it) },
+            selectedOptionFlow = formFields.individualTypeFlow,
+            onOptionSelected = { onIndividualTypeChange(it) },
             optionToText = { it.name },
-            errorTextFlow = uiState.individualTypeErrorFlow,
+            errorTextFlow = formFields.individualTypeErrorFlow,
             modifier = fieldModifier
                 .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
                 .testTag(IndividualEditScreenFields.TYPE.name)
         )
 
-        SwitchField(stringResource(SharedResources.strings.available), uiState.availableFlow, uiState.availableOnChange, fieldModifier.testTag(IndividualEditScreenFields.AVAILABLE.name))
+        SwitchField(stringResource(SharedResources.strings.available), formFields.availableFlow, onAvailableChange, fieldModifier.testTag(IndividualEditScreenFields.AVAILABLE.name))
     }
 }
 
@@ -116,17 +146,3 @@ enum class IndividualEditScreenFields {
     TYPE,
     AVAILABLE
 }
-
-//@PreviewDefault
-//@Composable
-//private fun Preview() {
-//    val uiState = IndividualEditUiState(
-//        firstNameFlow = MutableStateFlow("Jeff")
-//    )
-//
-//    AppTheme {
-//        Surface {
-//            IndividualEditContent(uiState)
-//        }
-//    }
-//}

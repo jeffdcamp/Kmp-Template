@@ -19,6 +19,7 @@
     <string name="invalid_birth_date">Invalid Birthdate</string>
     <string name="invalid_email">Invalid Email</string>
     <string name="last_name">Last Name</string>
+    <string name="no_list_items">No list items</string>
     <string name="phone">Phone</string>
     <string name="required">Required</string>
     <string name="save">Save</string>

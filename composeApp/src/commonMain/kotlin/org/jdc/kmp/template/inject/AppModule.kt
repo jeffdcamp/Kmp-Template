@@ -9,13 +9,9 @@ import org.jdc.kmp.template.model.repository.IndividualRepository
 import org.jdc.kmp.template.model.repository.SettingsRepository
 import org.jdc.kmp.template.ux.MainViewModel
 import org.jdc.kmp.template.ux.directory.DirectoryViewModel
-import org.jdc.kmp.template.ux.directory.GetDirectoryUiStateUseCase
-import org.jdc.kmp.template.ux.individual.GetIndividualUiStateUseCase
 import org.jdc.kmp.template.ux.individual.IndividualViewModel
-import org.jdc.kmp.template.ux.individualedit.GetIndividualEditUiStateUseCase
 import org.jdc.kmp.template.ux.individualedit.IndividualEditViewModel
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
@@ -37,10 +33,6 @@ val appModule = module {
     singleOf(::IndividualRepository)
     singleOf(::SettingsRepository)
     singleOf(::CreateIndividualTestDataUseCase)
-
-    factoryOf(::GetDirectoryUiStateUseCase)
-    factoryOf(::GetIndividualUiStateUseCase)
-    factoryOf(::GetIndividualEditUiStateUseCase)
 
     viewModelOf(::MainViewModel)
     viewModelOf(::DirectoryViewModel)

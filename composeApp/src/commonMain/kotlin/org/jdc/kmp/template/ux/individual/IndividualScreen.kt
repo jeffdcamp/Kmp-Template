@@ -23,18 +23,18 @@ import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigato
 import org.jdc.kmp.template.SharedResources
 import org.jdc.kmp.template.domain.Individual
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
-import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun IndividualScreen(
     navigator: Navigation3Navigator,
-    viewModel: IndividualViewModel = koinViewModel<IndividualViewModel>()
+    viewModel: IndividualViewModel
 ) {
-    val uiState = viewModel.uiState
+    val uiState by viewModel.uiStateFlow.collectAsState()
+    val individualId = if (uiState is IndividualUiState.Ready) (uiState as IndividualUiState.Ready).individual.id else null
 
     val appBarMenuItems = listOf(
-        AppBarMenuItem.Icon(Icons.Outlined.Edit, { stringResource(SharedResources.strings.edit) }) { uiState.onEditClick() },
-        AppBarMenuItem.Icon(Icons.Outlined.Delete, { stringResource(SharedResources.strings.delete) }) { uiState.onDeleteClick() }
+        AppBarMenuItem.Icon(Icons.Outlined.Edit, { stringResource(SharedResources.strings.edit) }) { individualId?.let { viewModel.onEditClick(it) } },
+        AppBarMenuItem.Icon(Icons.Outlined.Delete, { stringResource(SharedResources.strings.delete) }) { individualId?.let { viewModel.onDeleteClick(it) } }
     )
 
     MainAppScaffoldWithNavBar(
@@ -45,14 +45,17 @@ fun IndividualScreen(
         IndividualContent(uiState)
     }
 
-    HandleDialogUiState(uiState.dialogUiStateFlow)
+    HandleDialogUiState(viewModel.dialogUiStateFlow)
     HandleNavigation3(viewModel, navigator)
 }
 
 @Composable
 private fun IndividualContent(uiState: IndividualUiState) {
-    val individual by uiState.individualFlow.collectAsState()
-    individual?.let { IndividualSummary(it) }
+    when (uiState) {
+        IndividualUiState.Loading -> {}
+        is IndividualUiState.Ready -> { IndividualSummary(uiState.individual) }
+        IndividualUiState.Empty -> {}
+    }
 }
 
 @Composable
@@ -69,31 +72,3 @@ private fun IndividualSummary(individual: Individual) {
 //        TextWithTitle(DateUiUtil.getLocalTimeText(LocalContext.current, individual.alarmTime), stringResource(SharedResources.strings.alarmTime))
     }
 }
-
-enum class IndividualEditScreenFields {
-    FIRST_NAME,
-    LAST_NAME,
-    PHONE,
-    EMAIL,
-    BIRTH_DATE,
-    ALARM_TIME,
-    TYPE,
-    AVAILABLE
-}
-
-//@PreviewDefault
-//@Composable
-//private fun Preview() {
-//    AppTheme {
-//        Surface {
-//            IndividualSummary(
-//                individual = Individual(
-//                    firstName = FirstName("Jeff"),
-//                    lastName = LastName("Campbell"),
-//                    phone = Phone("801-555-0001"),
-//                    email = Email("bob@bob.com")
-//                )
-//            )
-//        }
-//    }
-//}
