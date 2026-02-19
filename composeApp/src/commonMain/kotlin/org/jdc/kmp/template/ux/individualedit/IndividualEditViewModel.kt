@@ -4,6 +4,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SelectableDates
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.icerock.moko.resources.StringResource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -44,16 +45,16 @@ class IndividualEditViewModel(
     private var individual = Individual()
 
     private val firstNameFlow = MutableStateFlow("")
-    private val firstNameErrorFlow = MutableStateFlow<String?>(null)
+    private val firstNameErrorFlow = MutableStateFlow<StringResource?>(null)
     private val lastNameFlow = MutableStateFlow("")
     private val phoneNumberFlow = MutableStateFlow("")
     private val emailFlow = MutableStateFlow("")
-    private val emailErrorFlow = MutableStateFlow<String?>(null)
+    private val emailErrorFlow = MutableStateFlow<StringResource?>(null)
     private val birthDateFlow = MutableStateFlow<LocalDate?>(null)
-    private val birthDateErrorFlow = MutableStateFlow<String?>(null)
+    private val birthDateErrorFlow = MutableStateFlow<StringResource?>(null)
     private val alarmTimeFlow = MutableStateFlow<LocalTime?>(null)
     private val individualTypeFlow = MutableStateFlow(IndividualType.UNKNOWN)
-    private val individualTypeErrorFlow = MutableStateFlow<String?>(null)
+    private val individualTypeErrorFlow = MutableStateFlow<StringResource?>(null)
     private val availableFlow = MutableStateFlow(false)
 
     init {
@@ -170,23 +171,23 @@ class IndividualEditViewModel(
         var allFieldsValid = true
 
         if (firstNameFlow.value.isBlank()) {
-            firstNameErrorFlow.value = SharedResources.strings.required.localized()
+            firstNameErrorFlow.value = SharedResources.strings.required
             allFieldsValid = false
         }
 
         if (emailFlow.value.isNotBlank() && !EmailUtil.isValidEmailAddress(emailFlow.value)) {
-            emailErrorFlow.value = SharedResources.strings.invalid_email.localized()
+            emailErrorFlow.value = SharedResources.strings.invalid_email
             allFieldsValid = false
         }
 
         val birthDate = birthDateFlow.value
         if (birthDate != null && birthDate >= Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date) {
-            birthDateErrorFlow.value = SharedResources.strings.invalid_birth_date.localized()
+            birthDateErrorFlow.value = SharedResources.strings.invalid_birth_date
             return false
         }
 
         if (individualTypeFlow.value == IndividualType.CHILD && lastNameFlow.value.isEmpty()) {
-            individualTypeErrorFlow.value = SharedResources.strings.required.localized()
+            individualTypeErrorFlow.value = SharedResources.strings.required
             return false
         }
 
@@ -233,15 +234,15 @@ sealed interface IndividualEditUiState {
 
 data class IndividualEditFormFields(
     val firstNameFlow: MutableStateFlow<String>,
-    val firstNameErrorFlow: MutableStateFlow<String?>,
+    val firstNameErrorFlow: MutableStateFlow<StringResource?>,
     val lastNameFlow: MutableStateFlow<String>,
     val phoneNumberFlow: MutableStateFlow<String>,
     val emailFlow: MutableStateFlow<String>,
-    val emailErrorFlow: MutableStateFlow<String?>,
+    val emailErrorFlow: MutableStateFlow<StringResource?>,
     val birthDateFlow: MutableStateFlow<LocalDate?>,
-    val birthDateErrorFlow: MutableStateFlow<String?>,
+    val birthDateErrorFlow: MutableStateFlow<StringResource?>,
     val alarmTimeFlow: MutableStateFlow<LocalTime?>,
     val individualTypeFlow: MutableStateFlow<IndividualType>,
-    val individualTypeErrorFlow: MutableStateFlow<String?>,
+    val individualTypeErrorFlow: MutableStateFlow<StringResource?>,
     val availableFlow: MutableStateFlow<Boolean>,
 )

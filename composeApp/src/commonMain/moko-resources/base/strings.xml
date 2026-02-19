@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="about">About</string>
+    <string name="acknowledgments">Acknowledgments</string>
     <string name="add">Add</string>
     <string name="alarm_time">Alarm Time</string>
     <string name="available">Available</string>
+    <string name="back">Back</string>
     <string name="birth_date">BirthDate</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
@@ -20,6 +22,7 @@
     <string name="invalid_email">Invalid Email</string>
     <string name="last_name">Last Name</string>
     <string name="no_list_items">No list items</string>
+    <string name="people">People</string>
     <string name="phone">Phone</string>
     <string name="required">Required</string>
     <string name="save">Save</string>

@@ -11,6 +11,8 @@ import androidx.navigation3.ui.NavDisplay
 import org.dbtools.kmp.commons.compose.navigation3.navigator.TopLevelBackStackNavigator
 import org.dbtools.kmp.commons.compose.navigation3.rememberNavigationState
 import org.dbtools.kmp.commons.compose.navigation3.toEntries
+import org.jdc.kmp.template.ux.about.AboutRoute
+import org.jdc.kmp.template.ux.about.AboutScreen
 import org.jdc.kmp.template.ux.directory.DirectoryRoute
 import org.jdc.kmp.template.ux.directory.DirectoryScreen
 import org.jdc.kmp.template.ux.directory.DirectoryViewModel
@@ -41,6 +43,7 @@ fun MainScreen() {
         entry<IndividualEditRoute> { key ->
             IndividualEditScreen(navigator, koinViewModel<IndividualEditViewModel> { parametersOf(key) })
         }
+        entry<AboutRoute> { AboutScreen(navigator, koinViewModel()) }
     }
 
     val decorators: List<NavEntryDecorator<NavKey>> = listOf(

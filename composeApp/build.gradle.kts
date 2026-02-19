@@ -84,6 +84,7 @@ kotlin {
             implementation(libs.jetbrains.compose.foundation)
             implementation(libs.jetbrains.compose.material.iconsext)
             implementation(libs.jetbrains.compose.material3)
+            implementation(libs.jetbrains.compose.material3.adaptive)
             implementation(libs.jetbrains.compose.material3.adaptive.navigation)
             implementation(libs.jetbrains.compose.ui.tooling.preview)
             implementation(libs.jetbrains.navigation3.ui)
@@ -104,6 +105,7 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.koin.test)
             implementation(libs.room.testing)
+            implementation(libs.konsist)
             implementation(libs.kotlin.test)
             implementation(libs.kotlin.coroutines.test)
             implementation(libs.assertk)

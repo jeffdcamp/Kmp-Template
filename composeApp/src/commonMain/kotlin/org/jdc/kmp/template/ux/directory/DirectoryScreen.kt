@@ -44,6 +44,7 @@ fun DirectoryScreen(
     )
 
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = stringResource(SharedResources.strings.directory),
         navigationIconVisible = false,
         actions = { AppBarMenu(appBarMenuItems) },

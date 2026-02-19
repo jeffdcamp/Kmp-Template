@@ -13,6 +13,7 @@ import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.compose.stringResource
 import org.dbtools.kmp.commons.compose.appbar.AppBarMenu
 import org.dbtools.kmp.commons.compose.appbar.AppBarMenuItem
@@ -41,6 +42,7 @@ fun IndividualEditScreen(
     )
 
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = stringResource(SharedResources.strings.edit_individual),
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navigator.pop() },
@@ -97,24 +99,35 @@ fun IndividualEditContent(
             .fillMaxWidth()
             .padding(bottom = 4.dp)
 
-        FlowTextField(stringResource(SharedResources.strings.first_name), formFields.firstNameFlow, onFirstNameChange, fieldModifier.testTag(IndividualEditScreenFields.FIRST_NAME.name),
-            formFields.firstNameErrorFlow)
-        FlowTextField(stringResource(SharedResources.strings.last_name), formFields.lastNameFlow, onLastNameChange, fieldModifier.testTag(IndividualEditScreenFields.LAST_NAME.name))
-        FlowTextField(stringResource(SharedResources.strings.phone), formFields.phoneNumberFlow, onPhoneChange, fieldModifier.testTag(IndividualEditScreenFields.PHONE.name))
-        FlowTextField(stringResource(SharedResources.strings.email), formFields.emailFlow, onEmailChange, fieldModifier.testTag(IndividualEditScreenFields.EMAIL.name), formFields.emailErrorFlow)
+        val firstName by formFields.firstNameFlow.collectAsState()
+        val firstNameError: StringResource? by formFields.firstNameErrorFlow.collectAsState()
+        val lastName by formFields.lastNameFlow.collectAsState()
+        val phone by formFields.phoneNumberFlow.collectAsState()
+        val email by formFields.emailFlow.collectAsState()
+        val emailErrorText by formFields.emailErrorFlow.collectAsState()
+        val birthDate by formFields.birthDateFlow.collectAsState()
+        val birthDateError by formFields.birthDateErrorFlow.collectAsState()
+        val alarmTime by formFields.alarmTimeFlow.collectAsState()
+        val individualType by formFields.individualTypeFlow.collectAsState()
+        val individualTypeError by formFields.individualTypeErrorFlow.collectAsState()
+
+        FlowTextField(stringResource(SharedResources.strings.first_name), firstName, onFirstNameChange, fieldModifier.testTag(IndividualEditScreenFields.FIRST_NAME.name), firstNameError?.let { stringResource(it) })
+        FlowTextField(stringResource(SharedResources.strings.last_name), lastName, onLastNameChange, fieldModifier.testTag(IndividualEditScreenFields.LAST_NAME.name))
+        FlowTextField(stringResource(SharedResources.strings.phone), phone, onPhoneChange, fieldModifier.testTag(IndividualEditScreenFields.PHONE.name))
+        FlowTextField(stringResource(SharedResources.strings.email), email, onEmailChange, fieldModifier.testTag(IndividualEditScreenFields.EMAIL.name), emailErrorText?.let { stringResource(it) })
 
         DateClickableTextField(
             label = stringResource(SharedResources.strings.birth_date),
-            localDateFlow = formFields.birthDateFlow,
+            localDate = birthDate,
             localDateToText = { it.toString() },
             onClick = onBirthDateClick,
             modifier = fieldModifier.testTag(IndividualEditScreenFields.BIRTH_DATE.name),
-            errorTextFlow = formFields.birthDateErrorFlow
+            errorText = birthDateError?.let { stringResource(it) }
         )
 
         TimeClickableTextField(
             label = stringResource(SharedResources.strings.alarm_time),
-            localTimeFlow = formFields.alarmTimeFlow,
+            localTime = alarmTime,
             localTimeToString = { it.toString() },
             onClick = onAlarmTimeClick,
             modifier = fieldModifier.testTag(IndividualEditScreenFields.ALARM_TIME.name)
@@ -123,10 +136,10 @@ fun IndividualEditContent(
         DropdownMenuBoxField(
             label = stringResource(SharedResources.strings.individual_type),
             options = IndividualType.entries,
-            selectedOptionFlow = formFields.individualTypeFlow,
+            selectedOption = individualType,
             onOptionSelected = { onIndividualTypeChange(it) },
             optionToText = { it.name },
-            errorTextFlow = formFields.individualTypeErrorFlow,
+            errorText = individualTypeError?.let { stringResource(it) },
             modifier = fieldModifier
                 .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
                 .testTag(IndividualEditScreenFields.TYPE.name)

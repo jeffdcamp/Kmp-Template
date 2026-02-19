@@ -38,6 +38,7 @@ fun IndividualScreen(
     )
 
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = stringResource(SharedResources.strings.individual),
         actions = { AppBarMenu(appBarMenuItems) },
         onNavigationClick = { navigator.pop() },

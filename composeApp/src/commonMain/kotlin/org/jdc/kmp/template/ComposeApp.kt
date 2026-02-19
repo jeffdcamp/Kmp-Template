@@ -2,6 +2,7 @@ package org.jdc.kmp.template
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import org.jdc.kmp.template.domain.type.DisplayThemeType
@@ -14,7 +15,10 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun ComposeApp() {
     val mainViewModel = koinViewModel<MainViewModel>()
-    mainViewModel.startup()
+
+    LaunchedEffect(Unit) {
+        mainViewModel.startup()
+    }
 
     val uiState by mainViewModel.uiStateFlow.collectAsState()
 
