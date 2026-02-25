@@ -100,7 +100,7 @@ fun MainAppScaffoldWithNavBar(
                         item(
                             selected = isSelected,
                             icon = { Icon(imageVector = imageVector, contentDescription = null) },
-                            label = { stringResource(navBarItem.label) },
+                            label = { Text(stringResource(navBarItem.label)) },
                             onClick = { navigator.navigateTopLevel(navBarItem.route, reselected = isSelected) },
                         )
                     }
