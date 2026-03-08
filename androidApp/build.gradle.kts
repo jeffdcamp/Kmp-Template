@@ -66,6 +66,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.shared)
     implementation(projects.composeApp)
 
     // inject

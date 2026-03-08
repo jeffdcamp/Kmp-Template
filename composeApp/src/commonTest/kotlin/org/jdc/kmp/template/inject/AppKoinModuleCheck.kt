@@ -1,7 +1,5 @@
 package org.jdc.kmp.template.inject
 
-import android.app.Application
-import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModel
 import com.lemonappdev.konsist.api.Konsist
@@ -26,17 +24,18 @@ class AppKoinModuleCheck {
     @OptIn(KoinExperimentalAPI::class)
     @Test
     fun checkKoinModule() {
-        val extraTypes = listOf(
-            Context::class,
-            Application::class,
-
-            DataStore::class, // Implementations of DataStore is done in the single<UserDataStore>
-            CoroutineDispatcher::class, // Implementations of CoroutineDispatcher is done in the single<AppCoroutineDispatchers>
+        val extraTypes = mutableListOf(
+            DataStore::class,
+            CoroutineDispatcher::class,
 
             // Route items that are supplied by koinViewModel<XxxViewModel> { parametersOf(key) }
             IndividualRoute::class,
             IndividualEditRoute::class,
         )
+
+        // Add Android types when available (not available on desktop/JVM)
+        runCatching { Class.forName("android.content.Context").kotlin }.getOrNull()?.let { extraTypes.add(it) }
+        runCatching { Class.forName("android.app.Application").kotlin }.getOrNull()?.let { extraTypes.add(it) }
 
         // Combine all modules into one "wrapper" module for verification.
         // This ensures all modules will know about definitions provided by other modules (Example: appModule can see definitions in datastoreModule)

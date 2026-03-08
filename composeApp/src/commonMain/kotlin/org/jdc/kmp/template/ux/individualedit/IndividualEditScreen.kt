@@ -111,7 +111,13 @@ fun IndividualEditContent(
         val individualType by formFields.individualTypeFlow.collectAsState()
         val individualTypeError by formFields.individualTypeErrorFlow.collectAsState()
 
-        FlowTextField(stringResource(SharedResources.strings.first_name), firstName, onFirstNameChange, fieldModifier.testTag(IndividualEditScreenFields.FIRST_NAME.name), firstNameError?.let { stringResource(it) })
+        FlowTextField(
+            label = stringResource(resource = SharedResources.strings.first_name),
+            text = firstName,
+            onChange = onFirstNameChange,
+            modifier = fieldModifier.testTag(IndividualEditScreenFields.FIRST_NAME.name),
+            errorText = firstNameError?.let { stringResource(it) }
+        )
         FlowTextField(stringResource(SharedResources.strings.last_name), lastName, onLastNameChange, fieldModifier.testTag(IndividualEditScreenFields.LAST_NAME.name))
         FlowTextField(stringResource(SharedResources.strings.phone), phone, onPhoneChange, fieldModifier.testTag(IndividualEditScreenFields.PHONE.name))
         FlowTextField(stringResource(SharedResources.strings.email), email, onEmailChange, fieldModifier.testTag(IndividualEditScreenFields.EMAIL.name), emailErrorText?.let { stringResource(it) })
