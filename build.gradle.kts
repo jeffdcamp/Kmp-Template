@@ -15,6 +15,8 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.room) apply false
     alias(libs.plugins.mokoResources) apply false
+    alias(libs.plugins.licenseManager) apply false
+    alias(libs.plugins.licenseReport) apply false
 
     alias(libs.plugins.download)
     alias(libs.plugins.detekt)

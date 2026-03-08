@@ -130,6 +130,65 @@ compose.desktop {
     }
 }
 
+// ./gradlew createLicenseReports
+// ./gradlew --stacktrace -i createLicenseReports
+licenseManager {
+    variantName = "release"
+    outputDirs = listOf("./src/main/assets", "./build/licenses")
+    excludeGroups = listOf(
+        // Church created libraries
+        "org.lds.mobile", "org.lds.sqlite",
+
+        // Commercial Licenses
+        "com.adobe.marketing.mobile"
+    )
+    // https://office365lds.sharepoint.com/sites/CorrelationDepartment/SitePages/Open-Source-Software-Licenses-Master-Allow-List-and-Block-List.aspx
+
+    // invalidLicenses = listOf("GPL","GNU","NonCommercial","NoDerivatives","ShareAlike","CPAL","EPL","MPL","RPL","SPL","WTFPL","Beerware","IPA","JSON","APSL","Artistic") +
+    //        listOf("BCL", "CECILL", "CDDL", "CPL", "DSL", "EUPL", "GCC", "IPL", "Rs-RL", "ODbL", "OSL", "NPL", "OCLC", "NGPL", "Peer", "QPL", "Qmail", "RPSL", "Ruby", "Sleepycat", "SISSL", "Watcom")
+
+    invalidLicensesUrl = "https://mobile-cdn.churchofjesuschrist.org/android/build/license/invalid-licenses.json"
+    customLicenses = listOf(
+        "SeeScore MusicXML rendering is used under license from Dolphin Computing www.seescore.co.uk"
+    )
+}
+
+// ===== `License Report` =====
+// ./gradlew generateLicenseReport
+licenseReport {
+    // By default this plugin will collect the union of all licenses from
+    // the immediate pom and the parent poms. If your legal team thinks this
+    // is too liberal, you can restrict collected licenses to only include the
+    // those found in the immediate pom file
+    // Defaults to: true
+    unionParentPomLicenses = false
+
+    configurations = arrayOf("releaseRuntimeClasspath")
+
+    filters = arrayOf<com.github.jk1.license.filter.DependencyFilter>(
+        com.github.jk1.license.filter.LicenseBundleNormalizer(),
+//        com.github.jk1.license.filter.ExcludeTransitiveDependenciesFilter(),
+    )
+
+    renderers = arrayOf<com.github.jk1.license.render.ReportRenderer>(
+        com.github.jk1.license.render.InventoryHtmlReportRenderer("licenses.html"),
+        com.github.jk1.license.render.InventoryMarkdownReportRenderer(),
+        com.github.jk1.license.render.JsonReportRenderer("licenses.json"),
+        com.github.jk1.license.render.TextReportRenderer("licenses.txt"),
+    )
+
+    excludeGroups = arrayOf(
+        // internal
+        "org.ics.mobile",
+        "org.lds.mobile",
+        "org.lds.sqlite",
+
+        // licensed
+        "net.zetetic", // transitive of Okta
+        "com.adobe.marketing", // Adobe
+    )
+}
+
 dependencies {
     // Room
     add("kspAndroid", libs.room.compiler)
