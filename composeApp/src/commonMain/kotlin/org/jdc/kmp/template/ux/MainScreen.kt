@@ -13,6 +13,8 @@ import org.dbtools.kmp.commons.compose.navigation3.rememberNavigationState
 import org.dbtools.kmp.commons.compose.navigation3.toEntries
 import org.jdc.kmp.template.ux.about.AboutRoute
 import org.jdc.kmp.template.ux.about.AboutScreen
+import org.jdc.kmp.template.ux.settings.SettingsRoute
+import org.jdc.kmp.template.ux.settings.SettingsScreen
 import org.jdc.kmp.template.ux.directory.DirectoryRoute
 import org.jdc.kmp.template.ux.directory.DirectoryScreen
 import org.jdc.kmp.template.ux.directory.DirectoryViewModel
@@ -44,6 +46,7 @@ fun MainScreen() {
             IndividualEditScreen(navigator, koinViewModel<IndividualEditViewModel> { parametersOf(key) })
         }
         entry<AboutRoute> { AboutScreen(navigator, koinViewModel()) }
+        entry<SettingsRoute> { SettingsScreen(navigator, koinViewModel()) }
     }
 
     val decorators: List<NavEntryDecorator<NavKey>> = listOf(

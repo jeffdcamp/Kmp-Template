@@ -12,6 +12,7 @@ import org.jdc.kmp.template.model.db.main.directoryitem.DirectoryItemEntityView
 import org.jdc.kmp.template.model.repository.IndividualRepository
 import org.jdc.kmp.template.ux.individual.IndividualRoute
 import org.jdc.kmp.template.ux.individualedit.IndividualEditRoute
+import org.jdc.kmp.template.ux.settings.SettingsRoute
 
 class DirectoryViewModel(
     individualRepository: IndividualRepository
@@ -33,7 +34,7 @@ class DirectoryViewModel(
     }
 
     fun onSettingsClick() {
-        // Settings not yet implemented in KMP
+        navigate(SettingsRoute)
     }
 }
 

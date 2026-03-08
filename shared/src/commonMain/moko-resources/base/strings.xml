@@ -28,5 +28,12 @@
     <string name="save">Save</string>
     <string name="search">Search</string>
     <string name="settings">Settings</string>
+    <string name="display">Display</string>
+    <string name="theme">Theme</string>
+    <string name="dynamic_theme">Dynamic Theme</string>
+    <string name="sort_by_last_name">Sort by Last Name</string>
+    <string name="system_default">System Default</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
     <string name="stuff">Stuff</string>
 </resources>

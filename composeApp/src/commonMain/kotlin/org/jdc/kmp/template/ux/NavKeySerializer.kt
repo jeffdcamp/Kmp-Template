@@ -16,6 +16,7 @@ import org.jdc.kmp.template.ux.about.AboutRoute
 import org.jdc.kmp.template.ux.directory.DirectoryRoute
 import org.jdc.kmp.template.ux.individual.IndividualRoute
 import org.jdc.kmp.template.ux.individualedit.IndividualEditRoute
+import org.jdc.kmp.template.ux.settings.SettingsRoute
 
 // Custom bridge serializer that encodes NavKey to JSON strings via kotlinx.serialization.
 // This is needed because SavedState in KMP doesn't have Android's Bundle-backed serialization, so it falls back to kotlinx.serialization, which requires explicit polymorphic registration for
@@ -28,6 +29,7 @@ val NavKeySerializerModule = SerializersModule {
         subclass(DirectoryRoute::class)
         subclass(IndividualRoute::class)
         subclass(IndividualEditRoute::class)
+        subclass(SettingsRoute::class)
     }
 }
 
