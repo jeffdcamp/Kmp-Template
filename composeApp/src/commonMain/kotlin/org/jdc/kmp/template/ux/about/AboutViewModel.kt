@@ -14,7 +14,6 @@ import org.dbtools.kmp.commons.ext.stateInDefault
 import org.jdc.kmp.template.domain.usecase.CreateIndividualTestDataUseCase
 import org.jdc.kmp.template.model.repository.IndividualRepository
 
-
 @Suppress("LongParameterList")
 class AboutViewModel(
     private val individualRepository: IndividualRepository,

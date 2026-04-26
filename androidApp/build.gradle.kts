@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kotlin.android)
 }
 
 kotlin {
@@ -89,5 +88,5 @@ dependencies {
     implementation(libs.kermit)
 
     // Test
-    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlin.test.junit)
 }

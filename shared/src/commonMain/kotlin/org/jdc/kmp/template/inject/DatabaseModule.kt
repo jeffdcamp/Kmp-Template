@@ -1,6 +1,6 @@
 package org.jdc.kmp.template.inject
 
-import androidx.room.RoomDatabase
+import androidx.room3.RoomDatabase
 import org.jdc.kmp.template.model.db.main.MainDatabase
 import org.koin.core.module.Module
 import org.koin.dsl.module

@@ -76,6 +76,7 @@ kotlin {
 
             // Database
             implementation(libs.room.runtime)
+            implementation(libs.room.paging)
             implementation(libs.sqlite.bundled)
             implementation(libs.datastorePrefs)
 
@@ -105,7 +106,7 @@ dependencies {
 //    add("kspIosArm64", libs.room.compiler)
 }
 
-room {
+room3 {
     schemaDirectory("$projectDir/schemas")
 }
 

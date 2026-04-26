@@ -21,7 +21,6 @@ plugins {
     alias(libs.plugins.download)
     alias(libs.plugins.detekt)
     alias(libs.plugins.versions)
-    alias(libs.plugins.kotlin.android) apply false
 }
 
 // ===== Gradle Dependency Check =====

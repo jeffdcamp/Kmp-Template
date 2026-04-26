@@ -1,7 +1,7 @@
 package org.jdc.kmp.template.model.db.main.directoryitem
 
-import androidx.room.Dao
-import androidx.room.Query
+import androidx.room3.Dao
+import androidx.room3.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao

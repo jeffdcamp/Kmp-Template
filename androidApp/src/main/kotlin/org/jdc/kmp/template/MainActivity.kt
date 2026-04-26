@@ -7,7 +7,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import co.touchlab.kermit.Logger
 import java.util.Locale
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

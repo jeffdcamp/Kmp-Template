@@ -1,7 +1,7 @@
 package org.jdc.kmp.template.model.repository
 
-import androidx.room.immediateTransaction
-import androidx.room.useReaderConnection
+import androidx.room3.immediateTransaction
+import androidx.room3.useReaderConnection
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest

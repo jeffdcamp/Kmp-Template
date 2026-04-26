@@ -1,14 +1,14 @@
 [versions]
-agp = "9.1.0" # only use the latest supported by KMP (https://kotlinlang.org/docs/multiplatform-compatibility-guide.html)
-kotlin = "2.3.20"
+agp = "9.2.0" # only use the latest supported by KMP (https://kotlinlang.org/docs/multiplatform-compatibility-guide.html)
+kotlin = "2.3.21"
 kotlinxAtomicfu = "0.32.1"
-kotlinxCoroutines = "1.10.2"
-kotlinxSerialization = "1.10.0"
+kotlinxCoroutines = "1.11.0-rc01"
+kotlinxSerialization = "1.11.0"
 kotlinxDateTime = "0.7.1"
 
-android-compileSdk = "36"
+android-compileSdk = "37"
 android-minSdk = "26"
-android-targetSdk = "36"
+android-targetSdk = "37"
 androidxActivityCompose = "1.13.0"
 androidxComposeMaterial3Adaptive = "1.2.0"
 androidxComposeMaterial3AdaptiveNavigation = "1.4.0"
@@ -16,11 +16,11 @@ androidxLifecycle = "2.10.0"
 
 assertk = "0.28.1"
 dataStore = "1.2.1"
-dbtoolsKmpCommons = "1.5.1"
+dbtoolsKmpCommons = "1.6.0"
 dbtoolsKmpCommonsCompose = "2.2.0"
-dbtoolsKmpRoom = "9.4.0"
+dbtoolsKmpRoom = "10.0.0-alpha03"
 desugar = "2.1.5"
-detekt = "2.0.0-alpha.2"
+detekt = "2.0.0-alpha.3"
 downloadPlugin = "5.7.0"
 firebaseGitLive = "2.4.0"
 firebaseAnalytics = "23.2.0"
@@ -33,23 +33,23 @@ jetbrainsLifecycle = "2.10.0"
 jetbrainsLifecycleViewModelNavigation3 = "2.10.0"
 jetbrainsNavigation = "2.9.2"
 jetbrainsNavigationSuite = "1.10.0-alpha05"
-jetbrainsNavigation3 = "1.0.0-alpha06"
+jetbrainsNavigation3 = "1.1.0"
 jetbrainsMaterial3 = "1.9.0"
 
 kermit = "2.1.0"
-koin = "4.2.0"
+koin = "4.2.1"
 konsist = "0.17.3"
-ktor = "3.4.2"
+ktor = "3.4.3"
 kover = "0.9.8"
-ksp = "2.3.6"
+ksp = "2.3.7"
 licenseManager = "1.6.0"
-licenseReport = "3.1.1"
+licenseReport = "3.1.2"
 mockK = "1.14.9"
-mokoResources = "0.26.1"
+mokoResources = "0.26.3"
 okio = "3.17.0"
-room = "2.8.4"
+room = "3.0.0-alpha03"
 sqlite = "2.6.2"
-versionsPlugin = "0.53.0"
+versionsPlugin = "0.54.0"
 coreKtx = "1.18.0"
 
 [plugins]
@@ -66,9 +66,8 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 licenseManager = { id = "org.dbtools.license-manager", version.ref = "licenseManager" }
 licenseReport = { id = "com.github.jk1.dependency-license-report", version.ref = "licenseReport" }
 mokoResources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "mokoResources" }
-room = { id = "androidx.room", version.ref = "room" }
+room = { id = "androidx.room3", version.ref = "room" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 [libraries]
 android-desugar = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar" }
@@ -126,6 +125,7 @@ ktor-client-serialization = { group = "io.ktor", name = "ktor-serialization-kotl
 ktor-client-resources = { group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor" }
 ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
+kotlin-test-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin" }
 
 mockK = { group = "io.mockk", name = "mockk", version.ref = "mockK" }
 
@@ -135,9 +135,11 @@ moko-resources-test = { group = "dev.icerock.moko", name = "resources-test", ver
 
 okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
 
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
+room-compiler = { group = "androidx.room3", name = "room3-compiler", version.ref = "room" }
+room-paging = { group = "androidx.room3", name = "room3-paging", version.ref = "room" }
+room-runtime = { group = "androidx.room3", name = "room3-runtime", version.ref = "room" }
+room-testing = { group = "androidx.room3", name = "room3-testing", version.ref = "room" }
+
 sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

@@ -1,7 +1,7 @@
 package org.jdc.kmp.template.model.db.main.household
 
-import androidx.room.ColumnInfo
-import androidx.room.Relation
+import androidx.room3.ColumnInfo
+import androidx.room3.Relation
 import org.jdc.kmp.template.model.db.main.individual.IndividualEntity
 
 data class HouseholdMembers(

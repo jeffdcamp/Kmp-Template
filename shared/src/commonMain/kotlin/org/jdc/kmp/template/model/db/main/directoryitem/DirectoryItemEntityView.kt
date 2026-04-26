@@ -1,6 +1,6 @@
 package org.jdc.kmp.template.model.db.main.directoryitem
 
-import androidx.room.DatabaseView
+import androidx.room3.DatabaseView
 import org.jdc.kmp.template.domain.inline.FirstName
 import org.jdc.kmp.template.domain.inline.IndividualId
 import org.jdc.kmp.template.domain.inline.LastName

@@ -1,7 +1,7 @@
 package org.jdc.kmp.template.inject
 
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room3.Room
+import androidx.room3.RoomDatabase
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import org.jdc.kmp.template.model.datastore.DatastoreUtil.createDataStoreFilename
