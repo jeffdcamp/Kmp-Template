@@ -1,8 +1,9 @@
 package org.jdc.kmp.template.ux.settings
 
-import dev.icerock.moko.resources.compose.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.icerock.moko.resources.compose.stringResource
+import getPlatform
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -10,7 +11,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.dbtools.kmp.commons.compose.dialog.DialogUiState
-import org.dbtools.kmp.commons.compose.dialog.DropDownMenuDialogUiState
+import org.dbtools.kmp.commons.compose.dialog.DropdownMenuDialogUiState
 import org.dbtools.kmp.commons.compose.dialog.InputDialogUiState
 import org.dbtools.kmp.commons.compose.dialog.RadioDialogDataItem
 import org.dbtools.kmp.commons.compose.dialog.RadioDialogDataItems
@@ -18,7 +19,6 @@ import org.dbtools.kmp.commons.compose.dialog.RadioDialogUiState
 import org.dbtools.kmp.commons.compose.dialog.dismissDialog
 import org.dbtools.kmp.commons.ext.stateInDefault
 import org.jdc.kmp.template.SharedResources
-import getPlatform
 import org.jdc.kmp.template.domain.type.DisplayThemeType
 import org.jdc.kmp.template.model.repository.SettingsRepository
 
@@ -78,7 +78,7 @@ class SettingsViewModel(
 
     fun onRangeClick() = viewModelScope.launch {
         val currentValue = settingsRepository.getRange()
-        dialogUiStateMutableFlow.value = DropDownMenuDialogUiState(
+        dialogUiStateMutableFlow.value = DropdownMenuDialogUiState(
             title = { "Range" },
             options = SettingsRepository.RANGE_OPTIONS,
             optionToText = { it.toString() },

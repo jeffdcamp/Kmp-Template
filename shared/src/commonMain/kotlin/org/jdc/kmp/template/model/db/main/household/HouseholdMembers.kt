@@ -9,6 +9,6 @@ data class HouseholdMembers(
     @ColumnInfo(name = "name")
     var householdName: String = "",
 
-    @Relation(parentColumn = "id", entityColumn = "householdId", entity = IndividualEntity::class, projection = ["firstName"])
+    @Relation(parentColumns = ["id"], entityColumns = ["householdId"], entity = IndividualEntity::class, projection = ["firstName"])
     var memberNames: List<String> = emptyList()
 )

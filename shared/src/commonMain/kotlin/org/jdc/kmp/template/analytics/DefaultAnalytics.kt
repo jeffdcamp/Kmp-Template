@@ -2,9 +2,14 @@ package org.jdc.kmp.template.analytics
 
 import co.touchlab.kermit.Logger
 import isDebugMode
+import org.dbtools.kmp.commons.analytics.AnalyticError
+import org.dbtools.kmp.commons.analytics.AnalyticEvent
+import org.dbtools.kmp.commons.analytics.AnalyticScreen
+import org.dbtools.kmp.commons.analytics.AppAnalytics
+import org.dbtools.kmp.commons.analytics.TestStrategy
 import kotlin.time.Clock
-import kotlin.time.Instant
 import kotlin.time.Duration.Companion.hours
+import kotlin.time.Instant
 
 /**
  * DebugView for Firebase Analytics (https://firebase.google.com/docs/analytics/debugview)
@@ -40,14 +45,19 @@ class DefaultAnalytics : Analytics {
     override fun setDimensions(dimensions: List<String>) {
     }
 
-    override fun logEvent(eventId: String, attributes: Map<String, String>, scope: AppAnalytics.ScopeLevel) {
+    override fun logEvent(event: AnalyticEvent) {
         updateDimensions()
-        AppAnalytics.logEvent(eventId, attributes, scopeLevel = scope)
+        AppAnalytics.logEvent(event)
     }
 
-    override fun logScreen(screen: String) {
+    override fun logScreen(screen: AnalyticScreen) {
         updateDimensions()
-        AppAnalytics.logScreen(screen, scopeLevel = AppAnalytics.ScopeLevel.DEV)
+        AppAnalytics.logScreen(screen)
+    }
+
+    override fun logError(error: AnalyticError) {
+        updateDimensions()
+        AppAnalytics.logError(error)
     }
 
     override fun enableInAppNotifications(allow: Boolean) {

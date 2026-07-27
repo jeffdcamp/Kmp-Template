@@ -1,6 +1,6 @@
 package org.jdc.kmp.template.model.db.converter
 
-import androidx.room3.TypeConverter
+import androidx.room3.ColumnTypeConverter
 import kotlin.time.Instant
 import org.jdc.kmp.template.domain.inline.CreatedTime
 import org.jdc.kmp.template.domain.inline.Email
@@ -13,43 +13,43 @@ import org.jdc.kmp.template.domain.inline.Phone
 
 @Suppress("TooManyFunctions")
 object DataValueClassTypeConverters {
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToIndividualId(value: String): IndividualId = IndividualId(value)
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromIndividualIdToString(value: IndividualId): String = value.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToHouseholdId(value: String): HouseholdId = HouseholdId(value)
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromHouseholdIdToString(value: HouseholdId): String = value.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToFirstName(value: String): FirstName = FirstName(value)
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromFirstNameToString(value: FirstName): String = value.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToLastName(value: String): LastName = LastName(value)
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromLastNameToString(value: LastName): String = value.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToPhone(value: String): Phone = Phone(value)
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromPhoneToString(value: Phone): String = value.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToEmail(value: String): Email = Email(value)
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromEmailToString(value: Email): String = value.value
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToCreatedTime(value: String): CreatedTime = CreatedTime(Instant.parse(value))
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromCreatedTimeToString(value: CreatedTime): String = value.value.toString()
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromStringToLastModifiedTime(value: String): LastModifiedTime = LastModifiedTime(Instant.parse(value))
-    @TypeConverter
+    @ColumnTypeConverter
     fun fromLastModifiedTimeToString(value: LastModifiedTime): String = value.value.toString()
 }

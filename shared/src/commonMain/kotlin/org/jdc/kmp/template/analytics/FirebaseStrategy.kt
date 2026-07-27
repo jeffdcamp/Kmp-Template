@@ -4,6 +4,10 @@ package org.jdc.kmp.template.analytics
 
 import co.touchlab.kermit.Logger
 import dev.gitlive.firebase.analytics.FirebaseAnalytics
+import org.dbtools.kmp.commons.analytics.AnalyticError
+import org.dbtools.kmp.commons.analytics.AnalyticEvent
+import org.dbtools.kmp.commons.analytics.AnalyticScreen
+import org.dbtools.kmp.commons.analytics.AppAnalytics
 import java.util.Locale
 
 class FirebaseStrategy(
@@ -15,38 +19,34 @@ class FirebaseStrategy(
     var eventScopeLevel = AppAnalytics.DEFAULT_EVENT_SCOPE_LEVEL
     var screenScopeLevel = AppAnalytics.DEFAULT_SCREEN_SCOPE_LEVEL
 
-    override fun logEvent(eventId: String, parameterMap: Map<String, String>, scopeLevel: AppAnalytics.ScopeLevel) {
-        if (scopeLevel.ordinal > eventScopeLevel.ordinal) {
+    override fun logEvent(event: AnalyticEvent) {
+        if (event.scopeLevel.ordinal > eventScopeLevel.ordinal) {
             return
         }
 
-        consoleLogMessage(AppAnalytics.LogLevel.EVENT, "logEvent($eventId)")
-        consoleLogParameterMap(parameterMap)
+        consoleLogMessage(AppAnalytics.LogLevel.EVENT, "logEvent(${event.id})")
+        consoleLogParameterMap(event.params)
 
-        firebaseAnalytics.logEvent(formatValidName(eventId), createParameterMapBundle(parameterMap))
+        firebaseAnalytics.logEvent(formatValidName(event.id), createParameterMapBundle(event.params))
     }
 
-    /**
-     * Log screens
-     * https://firebase.googleblog.com/2020/08/google-analytics-manual-screen-view.html
-     */
-    override fun logScreen(screenTitle: String, parameterMap: Map<String, String>, scopeLevel: AppAnalytics.ScopeLevel) {
-        if (scopeLevel.ordinal > screenScopeLevel.ordinal) {
+    override fun logScreen(screen: AnalyticScreen) {
+        if (screen.scopeLevel.ordinal > screenScopeLevel.ordinal) {
             return
         }
 
-        consoleLogMessage(AppAnalytics.LogLevel.EVENT, "logScreen($screenTitle)")
-        consoleLogParameterMap(parameterMap)
+        consoleLogMessage(AppAnalytics.LogLevel.EVENT, "logScreen(${screen.screenTitle})")
+        consoleLogParameterMap(screen.params)
 
-        val parameters = createParameterMapBundle(parameterMap)
-        parameters["screen_name"] = screenTitle // FirebaseAnalytics.Param.SCREEN_NAME
+        val parameters = createParameterMapBundle(screen.params)
+        parameters["screen_name"] = screen.screenTitle // FirebaseAnalytics.Param.SCREEN_NAME
         firebaseAnalytics.logEvent("screen_view", parameters) // FirebaseAnalytics.Event.SCREEN_VIEW
     }
 
-    private fun createParameterMapBundle(parameterMap: Map<String, String>): MutableMap<String, Any> {
+    private fun createParameterMapBundle(parameterMap: Map<String, String>?): MutableMap<String, Any> {
         val parameters = mutableMapOf<String, Any>()
 
-        parameterMap.forEach { param ->
+        parameterMap?.forEach { param ->
             parameters[formatValidName(param.key)] = param.value
         }
 
@@ -54,12 +54,10 @@ class FirebaseStrategy(
     }
 
     fun formatValidName(name: String): String {
-        // make sure the name is a valid event name
-        // https://firebase.google.com/docs/reference/cpp/group/event-names
         return name.trim().lowercase(Locale.getDefault()).replace(invalidCharactersRegex, "_").take(MAX_EVENT_NAME_LENGTH)
     }
 
-    override fun logError(errorMessage: String, errorClass: String, scopeLevel: AppAnalytics.ScopeLevel) {
+    override fun logError(error: AnalyticError) {
         // Not logging errors to Firebase
     }
 
@@ -73,9 +71,9 @@ class FirebaseStrategy(
         }
     }
 
-    private fun consoleLogParameterMap(parameterMap: Map<String, String>) {
+    private fun consoleLogParameterMap(parameterMap: Map<String, String>?) {
         if (logLevel.ordinal >= AppAnalytics.LogLevel.VERBOSE.ordinal) {
-            parameterMap.keys.forEach {
+            parameterMap?.keys?.forEach {
                 consoleLogMessage(AppAnalytics.LogLevel.VERBOSE, "  $it:${parameterMap[it]}")
             }
         }

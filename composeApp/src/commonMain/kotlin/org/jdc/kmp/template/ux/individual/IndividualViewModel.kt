@@ -1,12 +1,13 @@
 package org.jdc.kmp.template.ux.individual
 
-import dev.icerock.moko.resources.compose.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.dbtools.kmp.commons.analytics.AnalyticEvent
 import org.dbtools.kmp.commons.compose.dialog.DialogUiState
 import org.dbtools.kmp.commons.compose.dialog.dismissDialog
 import org.dbtools.kmp.commons.compose.dialog.showMessageDialog
@@ -38,7 +39,7 @@ class IndividualViewModel(
     }.stateInDefault(viewModelScope, IndividualUiState.Loading)
 
     init {
-        analytics.logEvent(Analytics.EVENT_VIEW_INDIVIDUAL)
+        analytics.logEvent(AnalyticEvent(Analytics.EVENT_VIEW_INDIVIDUAL))
     }
 
     fun onDeleteClick(individualId: IndividualId) {
@@ -53,13 +54,13 @@ class IndividualViewModel(
     }
 
     private fun deleteIndividual(individualId: IndividualId) = viewModelScope.launch {
-        analytics.logEvent(Analytics.EVENT_DELETE_INDIVIDUAL)
+        analytics.logEvent(AnalyticEvent(Analytics.EVENT_DELETE_INDIVIDUAL))
         individualRepository.deleteIndividual(individualId)
         navigate(Navigation3Action.Pop())
     }
 
     fun onEditClick(individualId: IndividualId) {
-        analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
+        analytics.logEvent(AnalyticEvent(Analytics.EVENT_EDIT_INDIVIDUAL))
         navigate(Navigation3Action.Navigate(IndividualEditRoute(individualId)))
     }
 }

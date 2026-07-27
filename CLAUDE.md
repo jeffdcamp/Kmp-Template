@@ -86,7 +86,7 @@ AndroidX DataStore with two sources: `DevicePreferenceDataSource` (device-specif
 - **Kermit** — Multiplatform logging
 - **Detekt** — Static analysis (config downloaded at build time)
 - **Kover** — Code coverage
-- **Konsist** — Architecture verification in tests
+  - **Konsist** — Architecture verification in tests
 
 ## Testing
 

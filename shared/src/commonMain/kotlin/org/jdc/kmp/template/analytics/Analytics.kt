@@ -1,10 +1,15 @@
 package org.jdc.kmp.template.analytics
 
+import org.dbtools.kmp.commons.analytics.AnalyticError
+import org.dbtools.kmp.commons.analytics.AnalyticEvent
+import org.dbtools.kmp.commons.analytics.AnalyticScreen
+
 interface Analytics {
     fun upload()
     fun setDimensions(dimensions: List<String>)
-    fun logEvent(eventId: String, attributes: Map<String, String> = emptyMap(), scope: AppAnalytics.ScopeLevel = AppAnalytics.ScopeLevel.DEV)
-    fun logScreen(screen: String)
+    fun logEvent(event: AnalyticEvent)
+    fun logScreen(screen: AnalyticScreen)
+    fun logError(error: AnalyticError)
     fun enableInAppNotifications(allow: Boolean)
 
     companion object {
@@ -19,5 +24,13 @@ interface Analytics {
 
         // Params
         const val PARAM_BUILD_TYPE = "build_type"
+    }
+
+    object Screen {
+        const val DIRECTORY = "Directory"
+        const val INDIVIDUAL = "Individual"
+        const val INDIVIDUAL_EDIT = "Individual Edit"
+        const val SETTINGS = "Settings"
+        const val ABOUT = "About"
     }
 }

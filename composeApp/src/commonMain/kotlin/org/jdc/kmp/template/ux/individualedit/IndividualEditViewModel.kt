@@ -12,6 +12,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.dbtools.kmp.commons.analytics.AnalyticEvent
 import org.dbtools.kmp.commons.compose.dialog.DatePickerDialogUiState
 import org.dbtools.kmp.commons.compose.dialog.DialogUiState
 import org.dbtools.kmp.commons.compose.dialog.TimePickerDialogUiState
@@ -58,7 +59,7 @@ class IndividualEditViewModel(
     private val availableFlow = MutableStateFlow(false)
 
     init {
-        analytics.logEvent(Analytics.EVENT_EDIT_INDIVIDUAL)
+        analytics.logEvent(AnalyticEvent(Analytics.EVENT_EDIT_INDIVIDUAL))
         loadIndividual()
     }
 
