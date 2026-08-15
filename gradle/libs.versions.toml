@@ -20,9 +20,9 @@ dbtoolsKmpCommons = "1.7.0"
 dbtoolsKmpCommonsCompose = "2.4.0"
 dbtoolsKmpRoom = "10.0.0"
 desugar = "2.1.5"
-detekt = "2.0.0-alpha.5"
+detekt = "2.0.0-alpha.6"
 downloadPlugin = "5.7.0"
-firebaseGitLive = "2.5.0"
+firebaseGitLive = "2.6.0"
 firebaseAnalytics = "23.2.0"
 firebaseConfig = "23.1.0"
 
@@ -39,17 +39,17 @@ jetbrainsMaterial3 = "1.9.0"
 kermit = "2.1.0"
 koin = "4.2.2"
 konsist = "0.17.3"
-ktor = "3.5.1"
+ktor = "3.5.2"
 kover = "0.9.9"
-ksp = "2.3.10"
-licenseManager = "1.6.0"
+ksp = "2.3.11"
+licenseManager = "2.0.0"
 licenseReport = "3.1.4"
 mockK = "1.14.11"
 mokoResources = "0.26.4"
-okio = "3.18.0"
-room = "3.0.0"
+okio = "3.18.1"
+room = "3.0.1"
 sqlite = "2.7.0"
-versionsPlugin = "0.56.0"
+versionsPlugin = "0.61.0"
 coreKtx = "1.19.0"
 
 [plugins]
@@ -67,7 +67,7 @@ licenseManager = { id = "org.dbtools.license-manager", version.ref = "licenseMan
 licenseReport = { id = "com.github.jk1.dependency-license-report", version.ref = "licenseReport" }
 mokoResources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "mokoResources" }
 room = { id = "androidx.room3", version.ref = "room" }
-versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
+versions = { id = "io.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [libraries]
 android-desugar = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar" }
