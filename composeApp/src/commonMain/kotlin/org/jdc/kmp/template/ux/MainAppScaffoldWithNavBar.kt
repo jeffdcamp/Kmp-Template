@@ -11,15 +11,18 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.currentWindowSize
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
@@ -30,6 +33,7 @@ import dev.icerock.moko.resources.compose.stringResource
 import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigator
 import org.jdc.kmp.template.SharedResources
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainAppScaffoldWithNavBar(
     navigator: Navigation3Navigator,
@@ -43,6 +47,8 @@ fun MainAppScaffoldWithNavBar(
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
     contentWindowInsets: WindowInsets = WindowInsets(0, 0, 0, 0), // required when using enableEdgeToEdge
+    topAppBarColors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
+    scaffoldContainerColor: Color = MaterialTheme.colorScheme.background,
     content: @Composable () -> Unit,
 ) {
     MainAppScaffoldWithNavBar(
@@ -57,10 +63,13 @@ fun MainAppScaffoldWithNavBar(
         floatingActionButton = floatingActionButton,
         floatingActionButtonPosition = floatingActionButtonPosition,
         contentWindowInsets = contentWindowInsets,
+        topAppBarColors = topAppBarColors,
+        scaffoldContainerColor = scaffoldContainerColor,
         content = content
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainAppScaffoldWithNavBar(
     navigator: Navigation3Navigator,
@@ -74,6 +83,8 @@ fun MainAppScaffoldWithNavBar(
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
     contentWindowInsets: WindowInsets = WindowInsets(0, 0, 0, 0), // required when using enableEdgeToEdge
+    topAppBarColors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
+    scaffoldContainerColor: Color = MaterialTheme.colorScheme.background,
     content: @Composable () -> Unit,
 ) {
     when {
@@ -86,6 +97,8 @@ fun MainAppScaffoldWithNavBar(
                 onNavigationClick = onNavigationClick,
                 actions = actions,
                 floatingActionButton = floatingActionButton,
+                topAppBarColors = topAppBarColors,
+                scaffoldContainerColor = scaffoldContainerColor,
                 content = content
             )
         }
@@ -116,6 +129,8 @@ fun MainAppScaffoldWithNavBar(
                     floatingActionButton = floatingActionButton,
                     floatingActionButtonPosition = floatingActionButtonPosition,
                     contentWindowInsets = contentWindowInsets,
+                    topAppBarColors = topAppBarColors,
+                    scaffoldContainerColor = scaffoldContainerColor,
                     content = content
                 )
             }
@@ -135,6 +150,8 @@ private fun AppScaffold(
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
     contentWindowInsets: WindowInsets = WindowInsets(0, 0, 0, 0), // required when using enableEdgeToEdge
+    topAppBarColors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
+    scaffoldContainerColor: Color = MaterialTheme.colorScheme.background,
     content: @Composable () -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -146,6 +163,7 @@ private fun AppScaffold(
     val topAppBar: @Composable (() -> Unit) = {
         TopAppBar(
             title = title,
+            colors = topAppBarColors,
             navigationIcon = if (!navigationIconVisible) {
                 {}
             } else {
@@ -169,6 +187,7 @@ private fun AppScaffold(
         floatingActionButton = floatingActionButton,
         floatingActionButtonPosition = floatingActionButtonPosition,
         contentWindowInsets = contentWindowInsets,
+        containerColor = scaffoldContainerColor,
         modifier = appScaffoldModifier
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {

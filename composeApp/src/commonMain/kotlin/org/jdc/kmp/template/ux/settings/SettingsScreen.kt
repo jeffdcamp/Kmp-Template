@@ -10,8 +10,9 @@ import androidx.compose.ui.Modifier
 import dev.icerock.moko.resources.compose.stringResource
 import org.dbtools.kmp.commons.compose.dialog.HandleDialogUiState
 import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigator
+import org.dbtools.kmp.commons.compose.setting.Setting
+import org.dbtools.kmp.commons.compose.setting.SettingsUiUtil
 import org.jdc.kmp.template.SharedResources
-import org.jdc.kmp.template.ui.compose.setting.Setting
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
@@ -26,6 +27,8 @@ fun SettingsScreen(
         title = stringResource(SharedResources.strings.settings),
         hideNavigation = true,
         onNavigationClick = { navigator.pop() },
+        topAppBarColors = SettingsUiUtil.topAppBarColors(),
+        scaffoldContainerColor = SettingsUiUtil.scaffoldContainerColor(),
     ) {
         when (val uiState = uiState) {
             SettingsUiState.Loading -> {}
@@ -59,16 +62,23 @@ private fun SettingsContent(
     Column(
         modifier.verticalScroll(scrollState)
     ) {
-        Setting.Header(stringResource(SharedResources.strings.display))
-        Setting.Clickable(stringResource(SharedResources.strings.theme), uiState.currentThemeTitle) { onThemeSettingClick() }
-        if (uiState.showDynamicTheme) {
-            Setting.Switch(stringResource(SharedResources.strings.dynamic_theme), checked = uiState.dynamicTheme) { setDynamicTheme(it) }
+        Setting.Group(headerText = stringResource(SharedResources.strings.display)) {
+            GroupedClickable(position = Setting.GroupPositionType.FIRST, text = stringResource(SharedResources.strings.theme), secondaryText = uiState.currentThemeTitle) { onThemeSettingClick() }
+            if (uiState.showDynamicTheme) {
+                GroupedSwitch(position = Setting.GroupPositionType.MIDDLE, text = stringResource(SharedResources.strings.dynamic_theme), selected = uiState.dynamicTheme) { setDynamicTheme(it) }
+            }
+            GroupedSwitch(position = Setting.GroupPositionType.LAST, text = stringResource(SharedResources.strings.sort_by_last_name), selected = uiState.sortByLastName) { setSortByLastName(it) }
         }
-        Setting.Switch(stringResource(SharedResources.strings.sort_by_last_name), checked = uiState.sortByLastName) { setSortByLastName(it) }
 
         // not translated because this should not be visible for release builds
-        Setting.Header("Developer Options")
-        Setting.Clickable(text = "Last Installed Version Code", uiState.currentLastInstalledVersionCode) { onLastInstalledVersionCodeClick() }
-        Setting.Clickable(text = "Range", uiState.range) { onRangeClick() }
+        Setting.Group(headerText = "Developer Options") {
+            GroupedClickable(
+                position = Setting.GroupPositionType.FIRST,
+                text = "Last Installed Version Code",
+                secondaryText = uiState.currentLastInstalledVersionCode
+            ) { onLastInstalledVersionCodeClick() }
+
+            GroupedClickable(position = Setting.GroupPositionType.LAST, text = "Range", secondaryText = uiState.range) { onRangeClick() }
+        }
     }
 }
