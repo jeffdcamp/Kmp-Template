@@ -13,6 +13,11 @@ import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigato
 import org.dbtools.kmp.commons.compose.setting.Setting
 import org.dbtools.kmp.commons.compose.setting.SettingsUiUtil
 import org.jdc.kmp.template.SharedResources
+import org.jdc.kmp.template.display
+import org.jdc.kmp.template.dynamic_theme
+import org.jdc.kmp.template.settings
+import org.jdc.kmp.template.sort_by_last_name
+import org.jdc.kmp.template.theme
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
 
 @Composable

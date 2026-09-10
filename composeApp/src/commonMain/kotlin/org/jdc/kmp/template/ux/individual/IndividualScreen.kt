@@ -21,7 +21,12 @@ import org.dbtools.kmp.commons.compose.form.TextWithTitle
 import org.dbtools.kmp.commons.compose.navigation3.HandleNavigation3
 import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigator
 import org.jdc.kmp.template.SharedResources
+import org.jdc.kmp.template.delete
 import org.jdc.kmp.template.domain.Individual
+import org.jdc.kmp.template.edit
+import org.jdc.kmp.template.email
+import org.jdc.kmp.template.individual
+import org.jdc.kmp.template.phone
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
 
 @Composable

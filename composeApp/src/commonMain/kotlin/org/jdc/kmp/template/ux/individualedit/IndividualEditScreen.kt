@@ -27,7 +27,17 @@ import org.dbtools.kmp.commons.compose.navigation3.HandleNavigation3
 import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigator
 import org.dbtools.kmp.commons.compose.util.formKeyEventHandler
 import org.jdc.kmp.template.SharedResources
+import org.jdc.kmp.template.alarm_time
+import org.jdc.kmp.template.available
+import org.jdc.kmp.template.birth_date
 import org.jdc.kmp.template.domain.type.IndividualType
+import org.jdc.kmp.template.edit_individual
+import org.jdc.kmp.template.email
+import org.jdc.kmp.template.first_name
+import org.jdc.kmp.template.individual_type
+import org.jdc.kmp.template.last_name
+import org.jdc.kmp.template.phone
+import org.jdc.kmp.template.save
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
 
 @Composable

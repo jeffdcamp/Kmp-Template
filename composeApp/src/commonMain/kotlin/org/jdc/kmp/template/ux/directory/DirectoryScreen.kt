@@ -24,8 +24,13 @@ import org.dbtools.kmp.commons.compose.appbar.AppBarMenuItem
 import org.dbtools.kmp.commons.compose.navigation3.HandleNavigation3
 import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigator
 import org.jdc.kmp.template.SharedResources
+import org.jdc.kmp.template.add
+import org.jdc.kmp.template.directory
 import org.jdc.kmp.template.domain.inline.IndividualId
 import org.jdc.kmp.template.model.db.main.directoryitem.DirectoryItemEntityView
+import org.jdc.kmp.template.no_list_items
+import org.jdc.kmp.template.search
+import org.jdc.kmp.template.settings
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
 
 @Composable

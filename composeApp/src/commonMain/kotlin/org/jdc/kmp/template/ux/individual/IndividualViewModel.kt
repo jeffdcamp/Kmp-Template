@@ -17,6 +17,9 @@ import org.dbtools.kmp.commons.compose.navigation3.ViewModelNavigation3Impl
 import org.dbtools.kmp.commons.ext.stateInDefault
 import org.jdc.kmp.template.SharedResources
 import org.jdc.kmp.template.analytics.Analytics
+import org.jdc.kmp.template.cancel
+import org.jdc.kmp.template.delete
+import org.jdc.kmp.template.delete_individual_confirm
 import org.jdc.kmp.template.domain.Individual
 import org.jdc.kmp.template.domain.inline.IndividualId
 import org.jdc.kmp.template.model.repository.IndividualRepository

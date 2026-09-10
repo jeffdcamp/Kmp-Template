@@ -29,7 +29,10 @@ import org.jdc.kmp.template.domain.inline.FirstName
 import org.jdc.kmp.template.domain.inline.LastName
 import org.jdc.kmp.template.domain.inline.Phone
 import org.jdc.kmp.template.domain.type.IndividualType
+import org.jdc.kmp.template.invalid_birth_date
+import org.jdc.kmp.template.invalid_email
 import org.jdc.kmp.template.model.repository.IndividualRepository
+import org.jdc.kmp.template.required
 import kotlin.time.Clock
 
 class IndividualEditViewModel(

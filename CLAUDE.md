@@ -102,6 +102,7 @@ Frameworks: `kotlin.test`, AssertK, MockK, Koin test.
 - Run `detekt` before submitting Kotlin changes
 - Commit messages: short, sentence case, multiple changes separated with ` / `
 - User-facing strings go through `SharedResources` (moko-resources in shared module), not hardcoded
+- As of moko-resources 0.27.0, resource accessors are top-level extension properties in the `org.jdc.kmp.template` package. Alongside `import org.jdc.kmp.template.SharedResources`, each accessor must be imported explicitly (e.g. `import org.jdc.kmp.template.first_name` for `SharedResources.strings.first_name`); wildcard imports are rejected by detekt
 
 ## Adding a New Screen
 

@@ -21,6 +21,8 @@ import org.dbtools.kmp.commons.compose.appbar.AppBarMenuItem
 import org.dbtools.kmp.commons.compose.navigation3.HandleNavigation3
 import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigator
 import org.jdc.kmp.template.SharedResources
+import org.jdc.kmp.template.about
+import org.jdc.kmp.template.acknowledgments
 import org.jdc.kmp.template.ui.AppTheme
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
 

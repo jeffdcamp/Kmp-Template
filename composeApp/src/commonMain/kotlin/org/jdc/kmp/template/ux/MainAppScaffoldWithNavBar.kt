@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import dev.icerock.moko.resources.compose.stringResource
 import org.dbtools.kmp.commons.compose.navigation3.navigator.Navigation3Navigator
 import org.jdc.kmp.template.SharedResources
+import org.jdc.kmp.template.back
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

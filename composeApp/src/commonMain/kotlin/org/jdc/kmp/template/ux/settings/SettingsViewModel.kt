@@ -21,6 +21,7 @@ import org.dbtools.kmp.commons.ext.stateInDefault
 import org.jdc.kmp.template.SharedResources
 import org.jdc.kmp.template.domain.type.DisplayThemeType
 import org.jdc.kmp.template.model.repository.SettingsRepository
+import org.jdc.kmp.template.theme
 
 class SettingsViewModel(
     private val settingsRepository: SettingsRepository

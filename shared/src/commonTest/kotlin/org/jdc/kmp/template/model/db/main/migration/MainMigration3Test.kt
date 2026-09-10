@@ -1,11 +1,12 @@
 package org.jdc.kmp.template.model.db.main.migration
 
-import androidx.room.testing.MigrationTestHelper
+import androidx.room3.testing.MigrationTestHelper
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.sqlite.execSQL
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isTrue
+import kotlinx.coroutines.test.runTest
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import org.dbtools.room.ext.deleteDatabaseFiles
@@ -31,14 +32,14 @@ class MainMigration3Test {
     }
 
     @Test
-    fun emptyMigrationTest() {
+    fun emptyMigrationTest() = runTest {
         // Create the database at version 1
         val newConnection = mainDatabaseMigrationTestHelper.createDatabase(version = 2)
         newConnection.close()
     }
 
     @Test
-    fun migrationTest() {
+    fun migrationTest() = runTest {
         // Create the database at version 2
         val v2Connection = mainDatabaseMigrationTestHelper.createDatabase(version = 2)
 

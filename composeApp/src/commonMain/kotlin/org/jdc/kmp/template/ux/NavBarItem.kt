@@ -9,6 +9,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation3.runtime.NavKey
 import dev.icerock.moko.resources.StringResource
 import org.jdc.kmp.template.SharedResources
+import org.jdc.kmp.template.about
+import org.jdc.kmp.template.people
 import org.jdc.kmp.template.ux.about.AboutRoute
 import org.jdc.kmp.template.ux.directory.DirectoryRoute
 
