@@ -20,16 +20,16 @@ All commands use the Gradle wrapper from the repo root:
 
 Run a single test class: `./gradlew desktopTest --tests "org.jdc.kmp.template.inject.AppKoinModuleCheck"`
 
-iOS: open `iosApp/iosApp.xcodeproj` in Xcode (build invokes `:composeApp:embedAndSignAppleFrameworkForXcode` automatically).
+iOS: open `iosApp/iosApp.xcodeproj` in Xcode and run. The "Compile Kotlin Framework" build phase invokes `:composeApp:embedAndSignAppleFrameworkForXcode` and then `:composeApp:copyFrameworkResourcesToApp` (copies moko-resources bundles into the app; required because the framework is static). For a physical device, set `TEAM_ID` in `iosApp/Configuration/Config.xcconfig`. Quick Kotlin-only compile check: `./gradlew :composeApp:linkDebugFrameworkIosSimulatorArm64`.
 
 ## Project Structure
 
 - **`shared/`** — Non-UI KMP module containing domain models, data layer (Room, DataStore), repositories, analytics, use cases, Koin DI modules, and moko-resources string localization. Consumable by both Compose and native iOS (SwiftUI) apps. Room schemas in `shared/schemas/`.
 - **`composeApp/`** — Compose Multiplatform UI module. Contains screens, ViewModels, routes, navigation, theme, and Compose-specific Koin modules. Depends on `:shared`.
 - **`androidApp/`** — Android app entry point. Depends on `:shared` and `:composeApp`. Unit tests in `src/test`, instrumentation tests in `src/androidTest`.
-- **`iosApp/`** — Xcode project for iOS entry point (iOS target is currently commented out in build config).
+- **`iosApp/`** — Xcode project for iOS entry point. SwiftUI `ContentView` hosts Compose via `MainViewController()` (`composeApp/src/iosMain`), which starts Koin. Deployment target iOS 15.0.
 
-Targets: Android (minSdk 26, targetSdk 36), Desktop (JVM 21), iOS (commented out but scaffolded).
+Targets: Android (minSdk 26, targetSdk 37), Desktop (JVM 21), iOS (`iosArm64`, `iosSimulatorArm64`; static frameworks `ComposeApp` and `Shared`).
 
 ## Architecture
 
@@ -81,7 +81,7 @@ AndroidX DataStore with two sources: `DevicePreferenceDataSource` (device-specif
 - **Koin** (4.1.1) — Dependency injection
 - **Ktor** (3.4.0) — HTTP client
 - **kotlinx-serialization** — JSON serialization
-- **moko-resources** — Multiplatform string localization (`SharedResources`, in shared module)
+- **moko-resources** — Multiplatform string localization (`SharedResources`, in shared module). The plugin is also applied to `composeApp` (empty `ComposeAppResources`) only so the iOS framework bundles `shared`'s resources; don't add strings there
 - **dbtools-kmp-commons / dbtools-kmp-commons-compose** — Navigation3 utilities, Flow extensions (`stateInDefault`)
 - **Kermit** — Multiplatform logging
 - **Detekt** — Static analysis (config downloaded at build time)
@@ -101,6 +101,7 @@ Frameworks: `kotlin.test`, AssertK, MockK, Koin test.
 - Package: `org.jdc.kmp.template`
 - Run `detekt` before submitting Kotlin changes
 - Commit messages: short, sentence case, multiple changes separated with ` / `
+- `commonMain` must compile for iOS: no `java.*`/`android.*` APIs (use `kotlin.uuid.Uuid`, `kotlin.time.Clock`, Kotlin collections, etc.). Platform code goes in `androidMain`/`desktopMain`/`iosMain` actuals
 - User-facing strings go through `SharedResources` (moko-resources in shared module), not hardcoded
 - As of moko-resources 0.27.0, resource accessors are top-level extension properties in the `org.jdc.kmp.template` package. Alongside `import org.jdc.kmp.template.SharedResources`, each accessor must be imported explicitly (e.g. `import org.jdc.kmp.template.first_name` for `SharedResources.strings.first_name`); wildcard imports are rejected by detekt
 

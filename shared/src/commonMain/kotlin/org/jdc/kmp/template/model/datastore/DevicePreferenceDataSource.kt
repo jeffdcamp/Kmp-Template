@@ -16,7 +16,7 @@ import org.jdc.kmp.template.domain.type.DisplayThemeType
 import org.jdc.kmp.template.model.datastore.migration.DevicePreferenceMigration2
 import org.jdc.kmp.template.model.datastore.migration.DevicePreferenceMigration3
 import org.jdc.kmp.template.model.datastore.migration.PreferenceMigrations
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 class DevicePreferenceDataSource(
     deviceDataStore: DeviceDataStore
@@ -29,14 +29,14 @@ class DevicePreferenceDataSource(
     val rangePref: DatastorePrefItem<Int> = DatastorePrefItem.create(dataStore, Keys.RANGE, 1)
     val workSchedulerVersionPref: DatastorePrefItem<Int> = DatastorePrefItem.create(dataStore, Keys.WORK_SCHEDULER_VERSION, 0)
     val developerModePref: DatastorePrefItem<Boolean> = DatastorePrefItem.create(dataStore, Keys.DEV_MODE, false)
-    val appInstanceIdPref: DatastorePrefItem<String> = DatastorePrefItem.create(dataStore, Keys.APP_INSTANCE_ID, UUID.randomUUID().toString())
+    val appInstanceIdPref: DatastorePrefItem<String> = DatastorePrefItem.create(dataStore, Keys.APP_INSTANCE_ID, Uuid.random().toString())
 
     val appInfoPref: DatastorePrefItem<AppInfo> = DatastorePrefItem.createCustom(
         dataStore = dataStore,
         read = { preferences ->
             AppInfo(
                 preferences[Keys.DEV_MODE] ?: false,
-                preferences[Keys.APP_INSTANCE_ID] ?: UUID.randomUUID().toString(),
+                preferences[Keys.APP_INSTANCE_ID] ?: Uuid.random().toString(),
                 preferences[Keys.WORK_SCHEDULER_VERSION] ?: 0,
                 preferences[Keys.LAST_INSTALLED_VERSION_CODE] ?: 0
             )

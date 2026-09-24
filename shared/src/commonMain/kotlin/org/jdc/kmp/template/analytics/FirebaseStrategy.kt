@@ -8,7 +8,6 @@ import org.dbtools.kmp.commons.analytics.AnalyticError
 import org.dbtools.kmp.commons.analytics.AnalyticEvent
 import org.dbtools.kmp.commons.analytics.AnalyticScreen
 import org.dbtools.kmp.commons.analytics.AppAnalytics
-import java.util.Locale
 
 class FirebaseStrategy(
     private val firebaseAnalytics: FirebaseAnalytics
@@ -54,7 +53,7 @@ class FirebaseStrategy(
     }
 
     fun formatValidName(name: String): String {
-        return name.trim().lowercase(Locale.getDefault()).replace(invalidCharactersRegex, "_").take(MAX_EVENT_NAME_LENGTH)
+        return name.trim().lowercase().replace(invalidCharactersRegex, "_").take(MAX_EVENT_NAME_LENGTH)
     }
 
     override fun logError(error: AnalyticError) {

@@ -6,7 +6,6 @@ import androidx.datastore.core.DataMigration
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import co.touchlab.kermit.Logger
-import java.util.TreeMap
 
 val PREFERENCES_VERSION_KEY: Preferences.Key<Int> get() = intPreferencesKey("preferenceVersion")
 
@@ -49,7 +48,7 @@ class PreferenceMigrations(
     private val destructiveFallback: Boolean = false,
 ) : DataMigration<Preferences> {
 
-    private val migrationTree = mutableMapOf<Int, TreeMap<Int, PreferenceMigration>>()
+    private val migrationTree = mutableMapOf<Int, MutableMap<Int, PreferenceMigration>>()
 
     init {
         migrations.forEach {
@@ -58,7 +57,7 @@ class PreferenceMigrations(
 
             var targetMap = migrationTree[fromVersion]
             if (targetMap == null) {
-                targetMap = TreeMap()
+                targetMap = mutableMapOf()
                 migrationTree[fromVersion] = targetMap
             }
 
@@ -119,13 +118,12 @@ class PreferenceMigrations(
     ): List<PreferenceMigration> {
         var start = fromVersion
         while (if (upgrade) start < toVersion else start > toVersion) {
-            val targetNodes: TreeMap<Int, PreferenceMigration> = migrationTree[start] ?: return emptyList()
+            val targetNodes: Map<Int, PreferenceMigration> = migrationTree[start] ?: return emptyList()
             // keys are ordered so we can start searching from one end of them.
-            var keySet: Set<Int>
-            keySet = if (upgrade) {
-                targetNodes.descendingKeySet()
+            val keySet: List<Int> = if (upgrade) {
+                targetNodes.keys.sortedDescending()
             } else {
-                targetNodes.keys
+                targetNodes.keys.sorted()
             }
             var found = false
             for (targetVersion in keySet) {

@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.download)
     alias(libs.plugins.licenseManager)
     alias(libs.plugins.licenseReport)
+    alias(libs.plugins.mokoResources)
 }
 
 kotlin {
@@ -37,16 +38,15 @@ kotlin {
 
 //    linuxX64()
 
-//    listOf(
-//        iosX64(),
-//        iosArm64(),
-//        iosSimulatorArm64()
-//    ).forEach { iosTarget ->
-//        iosTarget.binaries.framework {
-//            baseName = "ComposeApp"
-//            isStatic = true
-//        }
-//    }
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+    }
 
     sourceSets {
         val desktopMain by getting
@@ -113,6 +113,13 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+// ===== String and other Resources =====
+// Applied here so the iOS framework bundles moko-resources from :shared (strings live in :shared)
+multiplatformResources {
+    resourcesPackage.set("org.jdc.kmp.template.compose") // required
+    resourcesClassName.set("ComposeAppResources")
 }
 
 // ./gradlew createLicenseReports

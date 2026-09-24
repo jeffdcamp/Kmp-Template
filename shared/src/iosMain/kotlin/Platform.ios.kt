@@ -1,9 +1,11 @@
 import platform.UIKit.UIDevice
-import platform.Foundation.NSUUID
+import kotlin.experimental.ExperimentalNativeApi
 
-class IOSPlatform: Platform {
-    override val name: String = UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
-}
+@OptIn(ExperimentalNativeApi::class)
+actual fun isDebugMode(): Boolean = kotlin.native.Platform.isDebugBinary
 
 actual fun getPlatform(): Platform = IOSPlatform()
-actual fun randomUUID(): String = NSUUID().UUIDString()
+
+class IOSPlatform : Platform {
+    override val name: String = UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
+}

@@ -200,7 +200,7 @@ class IndividualEditViewModel(
 
     @OptIn(ExperimentalMaterial3Api::class)
     private fun showBirthDate() {
-        val todayMs = System.currentTimeMillis()
+        val todayMs = Clock.System.now().toEpochMilliseconds()
 
         dialogUiStateMutableFlow.value = DatePickerDialogUiState(
             localDate = birthDateFlow.value,
