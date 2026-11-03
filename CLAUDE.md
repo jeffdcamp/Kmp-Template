@@ -64,7 +64,7 @@ Shared modules registered in `shared/SharedKoinModules.kt` via `getSharedKoinMod
 
 ### Database (Room)
 
-Room with SQLite bundled for KMP. Entities and DAOs in `shared/model/db/main/`. Schema version tracking in `shared/schemas/`. Migrations in `model/db/main/migration/` with tests in `shared/commonTest`.
+Room with SQLite bundled for KMP. Entities and DAOs in `shared/model/db/main/`. Schema version tracking in `shared/schemas/`. Migrations in `model/db/main/migration/` with tests in `shared/desktopTest`.
 
 ### Domain Models
 
@@ -90,8 +90,9 @@ AndroidX DataStore with two sources: `DevicePreferenceDataSource` (device-specif
 
 ## Testing
 
-- Database and migration tests in `shared/src/commonTest`
-- Koin module verification in `composeApp/src/commonTest` (`inject/AppKoinModuleCheck.kt`) — verifies all dependencies resolve, no duplicates, and all ViewModels are registered (uses Konsist)
+- Database and migration tests in `shared/src/desktopTest`
+- Koin module verification in `composeApp/src/desktopTest` (`inject/AppKoinModuleCheck.kt`) — verifies all dependencies resolve, no duplicates, and all ViewModels are registered (uses Konsist)
+- Tests that need JVM-only libraries or APIs (Konsist, MockK, `java.io`/`java.nio`, Room's JVM `MigrationTestHelper`) go in `desktopTest`, not `commonTest`, since `commonTest` also compiles for iOS
 
 Frameworks: `kotlin.test`, AssertK, MockK, Koin test.
 

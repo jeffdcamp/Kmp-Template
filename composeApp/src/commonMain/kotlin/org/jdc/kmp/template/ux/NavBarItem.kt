@@ -1,16 +1,14 @@
 package org.jdc.kmp.template.ux
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.People
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.People
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation3.runtime.NavKey
 import dev.icerock.moko.resources.StringResource
 import org.jdc.kmp.template.SharedResources
 import org.jdc.kmp.template.about
 import org.jdc.kmp.template.people
+import org.jdc.kmp.template.ui.compose.icons.AppIcons
+import org.jdc.kmp.template.ui.compose.icons.Group
+import org.jdc.kmp.template.ui.compose.icons.Info
 import org.jdc.kmp.template.ux.about.AboutRoute
 import org.jdc.kmp.template.ux.directory.DirectoryRoute
 
@@ -20,6 +18,6 @@ enum class NavBarItem(
     val route: NavKey,
     val label: StringResource,
 ) {
-    PEOPLE(Icons.Outlined.People, Icons.Filled.People, DirectoryRoute, SharedResources.strings.people),
-    ABOUT(Icons.Outlined.Info, Icons.Filled.Info, AboutRoute, SharedResources.strings.about);
+    PEOPLE(AppIcons.Rounded.Group, AppIcons.Filled.Group, DirectoryRoute, SharedResources.strings.people),
+    ABOUT(AppIcons.Rounded.Info, AppIcons.Filled.Info, AboutRoute, SharedResources.strings.about);
 }

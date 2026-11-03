@@ -89,7 +89,6 @@ kotlin {
             implementation(libs.kotlin.test)
             implementation(libs.kotlin.coroutines.test)
             implementation(libs.assertk)
-            implementation(libs.mockK)
         }
         desktopMain.dependencies {
         }

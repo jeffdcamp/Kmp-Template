@@ -5,6 +5,7 @@ import androidx.room3.RoomDatabase
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import okio.FileSystem
 import org.jdc.kmp.template.model.datastore.DatastoreUtil.createDataStoreFilename
 import org.jdc.kmp.template.model.datastore.DeviceDataStore
 import org.jdc.kmp.template.model.datastore.DevicePreferenceDataSource
@@ -50,6 +51,10 @@ actual val coroutineModule = module {
             main = Dispatchers.Main,
         )
     }
+}
+
+actual val fileSystemModule = module {
+    single { FileSystem.SYSTEM }
 }
 
 @OptIn(ExperimentalForeignApi::class)

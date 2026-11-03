@@ -1,6 +1,5 @@
 package org.jdc.kmp.template.inject
 
-import okio.FileSystem
 import org.jdc.kmp.template.analytics.Analytics
 import org.jdc.kmp.template.analytics.DefaultAnalytics
 import org.jdc.kmp.template.domain.usecase.CreateIndividualTestDataUseCase
@@ -32,8 +31,4 @@ val sharedModule = module {
     singleOf(::CreateIndividualTestDataUseCase)
 
     singleOf(::DefaultAnalytics) bind Analytics::class
-}
-
-val fileSystemModule = module {
-    single { FileSystem.SYSTEM }
 }

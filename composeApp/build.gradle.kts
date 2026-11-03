@@ -50,6 +50,7 @@ kotlin {
 
     sourceSets {
         val desktopMain by getting
+        val desktopTest by getting
 
         androidMain.dependencies {
         }
@@ -77,7 +78,6 @@ kotlin {
             implementation(libs.jetbrains.navigation.compose)
             implementation(libs.jetbrains.compose.runtime)
             implementation(libs.jetbrains.compose.foundation)
-            implementation(libs.jetbrains.compose.material.iconsext)
             implementation(libs.jetbrains.compose.material3)
             implementation(libs.jetbrains.compose.material3.adaptive)
             implementation(libs.jetbrains.compose.material3.adaptive.navigation)
@@ -90,15 +90,16 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.koin.test)
             implementation(libs.datastorePrefs)
-            implementation(libs.konsist)
             implementation(libs.kotlin.test)
             implementation(libs.kotlin.coroutines.test)
             implementation(libs.assertk)
-            implementation(libs.mockK)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlin.coroutines.swing)
+        }
+        desktopTest.dependencies {
+            implementation(libs.konsist)
         }
     }
 }

@@ -6,9 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
@@ -31,6 +28,9 @@ import org.jdc.kmp.template.model.db.main.directoryitem.DirectoryItemEntityView
 import org.jdc.kmp.template.no_list_items
 import org.jdc.kmp.template.search
 import org.jdc.kmp.template.settings
+import org.jdc.kmp.template.ui.compose.icons.Add
+import org.jdc.kmp.template.ui.compose.icons.AppIcons
+import org.jdc.kmp.template.ui.compose.icons.Search
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
@@ -42,7 +42,7 @@ fun DirectoryScreen(
 
     val appBarMenuItems = listOf(
         // icons
-        AppBarMenuItem.Icon(Icons.Outlined.Search, { stringResource(SharedResources.strings.search) }) {},
+        AppBarMenuItem.Icon(AppIcons.Rounded.Search, { stringResource(SharedResources.strings.search) }) {},
 
         // overflow
         AppBarMenuItem.OverflowMenuItem({ stringResource(SharedResources.strings.settings) }) { viewModel.onSettingsClick() }
@@ -58,7 +58,7 @@ fun DirectoryScreen(
             FloatingActionButton(
                 onClick = { viewModel.onNewClick() },
             ) {
-                Icon(Icons.Filled.Add, contentDescription = stringResource(SharedResources.strings.add))
+                Icon(AppIcons.Rounded.Add, contentDescription = stringResource(SharedResources.strings.add))
             }
         }
     ) {

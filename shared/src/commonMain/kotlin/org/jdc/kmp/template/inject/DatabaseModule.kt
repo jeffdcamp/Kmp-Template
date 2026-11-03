@@ -8,6 +8,7 @@ import org.koin.dsl.module
 expect val databaseBuilderModule: Module
 expect val datastoreModule: Module
 expect val coroutineModule: Module
+expect val fileSystemModule: Module
 
 val databaseModule = module {
     includes(databaseBuilderModule)

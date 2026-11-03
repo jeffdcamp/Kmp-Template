@@ -4,9 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -27,6 +24,9 @@ import org.jdc.kmp.template.edit
 import org.jdc.kmp.template.email
 import org.jdc.kmp.template.individual
 import org.jdc.kmp.template.phone
+import org.jdc.kmp.template.ui.compose.icons.AppIcons
+import org.jdc.kmp.template.ui.compose.icons.Delete
+import org.jdc.kmp.template.ui.compose.icons.Edit
 import org.jdc.kmp.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
@@ -38,8 +38,8 @@ fun IndividualScreen(
     val individualId = if (uiState is IndividualUiState.Ready) (uiState as IndividualUiState.Ready).individual.id else null
 
     val appBarMenuItems = listOf(
-        AppBarMenuItem.Icon(Icons.Outlined.Edit, { stringResource(SharedResources.strings.edit) }) { individualId?.let { viewModel.onEditClick(it) } },
-        AppBarMenuItem.Icon(Icons.Outlined.Delete, { stringResource(SharedResources.strings.delete) }) { individualId?.let { viewModel.onDeleteClick(it) } }
+        AppBarMenuItem.Icon(AppIcons.Rounded.Edit, { stringResource(SharedResources.strings.edit) }) { individualId?.let { viewModel.onEditClick(it) } },
+        AppBarMenuItem.Icon(AppIcons.Rounded.Delete, { stringResource(SharedResources.strings.delete) }) { individualId?.let { viewModel.onDeleteClick(it) } }
     )
 
     MainAppScaffoldWithNavBar(
